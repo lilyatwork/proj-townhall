@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>✨ Work Priorities – Next 4 Weeks</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #F3EEFF;
+      color: #3b0764;
+      padding: 40px 36px;
+    }
+
+    h1 { font-size: 22px; font-weight: 700; margin-bottom: 4px; color: #831843; }
+    .subtitle { font-size: 13px; color: #C084FC; margin-bottom: 28px; }
+
+    /* ── Legend ── */
+    .legend {
+      display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 28px;
+    }
+    .legend-item { display: flex; align-items: center; gap: 7px; font-size: 12px; color: #9D174D; }
+    .legend-dot { width: 10px; height: 10px; border-radius: 50%; }
+
+    /* ── Gantt ── */
+    .gantt {
+      display: grid;
+      grid-template-columns: 230px repeat(4, 1fr);
+      background: white;
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 2px 16px rgba(190,24,93,0.12);
+      margin-bottom: 32px;
+      border: 1px solid #FBCFE8;
+    }
+
+    /* Header */
+    .hcell {
+      background: #7C3AED;
+      color: white;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 13px 10px;
+      text-align: center;
+      letter-spacing: 0.02em;
+      line-height: 1.5;
+      border-right: 1px solid #6D28D9;
+    }
+    .hcell.label { text-align: left; padding-left: 18px; font-size: 12px; }
+    .hcell.now { background: #6D28D9; }
+    .badge {
+      display: inline-block;
+      background: #FDE68A; color: #78350F;
+      border-radius: 4px; padding: 1px 6px;
+      font-size: 10px; font-weight: 700; margin-top: 3px;
+    }
+    .badge-deadline {
+      display: inline-block;
+      background: #FCE7F3; color: #9D174D;
+      border-radius: 4px; padding: 1px 6px;
+      font-size: 10px; font-weight: 700; margin-top: 3px;
+    }
+
+    /* Section rows */
+    .section {
+      grid-column: 1 / -1;
+      background: #FCE7F3;
+      padding: 8px 18px;
+      font-size: 11px; font-weight: 700; color: #BE185D;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      border-top: 1px solid #FBCFE8;
+    }
+
+    /* Task label */
+    .tlabel {
+      padding: 14px 18px;
+      font-size: 13px; color: #6B21A8;
+      border-right: 1px solid #FBCFE8;
+      border-bottom: 1px solid #FCE7F3;
+      display: flex; align-items: flex-start; gap: 9px;
+      line-height: 1.45;
+    }
+    .tlabel .icon { font-size: 15px; flex-shrink: 0; margin-top: 1px; }
+    .tlabel .meta { font-size: 11px; color: #C084FC; margin-top: 2px; }
+
+    /* Cells */
+    .cell {
+      border-right: 1px solid #FBCFE8;
+      border-bottom: 1px solid #FCE7F3;
+      padding: 8px 6px;
+      min-height: 56px;
+      display: flex; flex-direction: column; gap: 4px;
+      justify-content: center;
+    }
+    .cell.now { background: #FFF0F8; border-right: 1px solid #F9A8D4; }
+
+    /* Bars */
+    .bar {
+      border-radius: 6px;
+      padding: 5px 9px;
+      font-size: 11px; font-weight: 600;
+      line-height: 1.35;
+      position: relative;
+    }
+    .bar.faint { opacity: 0.55; font-weight: 400; }
+
+    /* Tag chips */
+    .chip {
+      display: inline-block;
+      border-radius: 20px; padding: 2px 7px;
+      font-size: 10px; font-weight: 700;
+      margin-left: 5px; vertical-align: middle;
+    }
+    .chip-now  { background: #FDE68A; color: #92400E; }
+    .chip-soon { background: #E9D5FF; color: #6B21A8; }
+
+    /* Milestone cell */
+    .milestone { display: flex; align-items: center; justify-content: center; height: 100%; }
+    .mdot {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px;
+      background: #FDE68A; color: #78350f;
+      box-shadow: 0 0 0 4px #FEF3C7;
+    }
+
+    /* Colour palette — magical girl edition ✨ */
+    .c-people   { background: #BAE6FD; color: #0369A1; } /* Sailor Mercury blue */
+    .c-event    { background: #FBCFE8; color: #9D174D; } /* Sakura blossom pink */
+    .c-project  { background: #A7F3D0; color: #065F46; } /* Sailor Jupiter mint */
+    .c-plan     { background: #E9D5FF; color: #6B21A8; } /* Sailor Moon lavender */
+    .c-sync     { background: #FEF3C7; color: #92400E; } /* crescent moon gold */
+
+    /* ── Bottom section: 2-col layout ── */
+    .bottom-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    @media (max-width: 700px) {
+      .bottom-grid { grid-template-columns: 1fr; }
+    }
+
+    /* Cards */
+    .card {
+      background: white;
+      border-radius: 13px;
+      padding: 20px 22px;
+      box-shadow: 0 2px 12px rgba(190,24,93,0.08);
+      border: 1px solid #FBCFE8;
+    }
+    .card h3 {
+      font-size: 13px; font-weight: 700; margin-bottom: 12px;
+      display: flex; align-items: center; gap: 7px;
+      color: #9D174D;
+    }
+    .card ul { list-style: none; padding: 0; }
+    .card ul li {
+      font-size: 12.5px; color: #6B21A8;
+      padding: 5px 0;
+      border-bottom: 1px solid #FCE7F3;
+      line-height: 1.5;
+      display: flex; align-items: flex-start; gap: 8px;
+    }
+    .card ul li:last-child { border-bottom: none; }
+    .card ul li input[type="checkbox"] {
+      margin-top: 2px;
+      flex-shrink: 0;
+      width: 14px; height: 14px;
+      accent-color: #BE185D;
+      cursor: pointer;
+    }
+    .card ul li label {
+      cursor: pointer;
+      line-height: 1.5;
+    }
+    .card ul li input[type="checkbox"]:checked + label {
+      text-decoration: line-through;
+      color: #F9A8D4;
+    }
+
+    /* Sync redesign card – wider, spans both cols */
+    .sync-card {
+      grid-column: 1 / -1;
+      background: white;
+      border-radius: 13px;
+      padding: 22px 24px;
+      box-shadow: 0 2px 12px rgba(190,24,93,0.08);
+      border-left: 4px solid #F472B6;
+      border: 1px solid #FBCFE8;
+      border-left: 4px solid #EC4899;
+    }
+    .sync-card h2 {
+      font-size: 14px; font-weight: 700; margin-bottom: 6px;
+      display: flex; align-items: center; gap: 8px;
+      color: #9D174D;
+    }
+    .sync-card .desc {
+      font-size: 12.5px; color: #A855F7; margin-bottom: 18px; line-height: 1.6;
+    }
+    .sync-sections {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 14px;
+    }
+    .sync-block {
+      background: #FFF5F9;
+      border-radius: 9px;
+      padding: 13px 15px;
+      border: 1px solid #FBCFE8;
+    }
+    .sync-block h4 {
+      font-size: 11px; font-weight: 700; color: #BE185D;
+      text-transform: uppercase; letter-spacing: 0.05em;
+      margin-bottom: 8px;
+      display: flex; align-items: center; gap: 5px;
+    }
+    .sync-block ul { list-style: none; padding: 0; }
+    .sync-block ul li {
+      font-size: 12px; color: #6B21A8;
+      padding: 3px 0;
+      line-height: 1.45;
+      display: flex; gap: 6px;
+    }
+    .sync-block ul li::before { content: '✦'; color: #F472B6; flex-shrink: 0; font-size: 10px; }
+    .timing-note {
+      margin-top: 16px;
+      font-size: 12px;
+      color: #A855F7;
+      background: #FFF5F9;
+      border-radius: 8px;
+      padding: 10px 14px;
+      line-height: 1.6;
+      border: 1px solid #FBCFE8;
+    }
+    .timing-note strong { color: #9D174D; }
+
+  </style>
+</head>
+<body>
+
+<h1>Work Priorities — Lily</h1>
+  <p class="subtitle">Next 4 weeks · Mar 17 – Apr 14, 2026 · Updated 17 Mar</p>
+
+  <div class="legend">
+    <div class="legend-item"><div class="legend-dot" style="background:#3b82f6"></div> People &amp; team</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#ec4899"></div> Events &amp; sharing</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#10b981"></div> Project work</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#8b5cf6"></div> Workshop planning</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#f97316"></div> Sync revamp</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#f59e0b"></div> Milestone</div>
+  </div>
+
+  <!-- ── Gantt ── -->
+  <div class="gantt">
+
+    <!-- Header -->
+    <div class="hcell label">Task</div>
+    <div class="hcell now">
+      Week 1<br>Mar 17–21<br><span class="badge">THIS WEEK</span>
+    </div>
+    <div class="hcell">
+      Week 2<br>Mar 24–28
+    </div>
+    <div class="hcell">
+      Week 3<br>Mar 31–Apr 4<br><span class="badge-deadline">Mar 31 ✦</span>
+    </div>
+    <div class="hcell">
+      Week 4<br>Apr 6–11<br><span class="badge-deadline">Apr 6 ✦</span>
+    </div>
+
+    <!-- ─── PEOPLE & TEAM ─── -->
+    <div class="section">👥 People &amp; Team</div>
+
+    <div class="tlabel">
+      <span class="icon">🤝</span>
+      <div>
+        Augmented designer check-in<span class="chip chip-now">NOW</span>
+        <div class="meta">Onboarding, settling in, any blockers</div>
+      </div>
+    </div>
+    <div class="cell now">
+      <div class="bar c-people">First check-in (30 min)</div>
+    </div>
+    <div class="cell">
+      <div class="bar c-people faint">Quick follow-up</div>
+    </div>
+    <div class="cell">
+      <div class="bar c-people faint">2-week check-in</div>
+    </div>
+    <div class="cell">
+      <div class="bar c-people faint">1-month review</div>
+    </div>
+
+    <div class="tlabel">
+      <span class="icon">🌱</span>
+      <div>
+        Intern welfare check-in<span class="chip chip-now">NOW</span>
+        <div class="meta">Workload, wellbeing, confidence</div>
+      </div>
+    </div>
+    <div class="cell now">
+      <div class="bar c-people">Welfare chat</div>
+    </div>
+    <div class="cell">
+      <div class="bar c-people faint">Regular 1:1</div>
+    </div>
+    <div class="cell">
+      <div class="bar c-people faint">Regular 1:1</div>
+    </div>
+    <div class="cell">
+      <div class="bar c-people faint">Regular 1:1</div>
+    </div>
+
+    <!-- ─── EVENTS ─── -->
+    <div class="section">📢 Events &amp; Sharing</div>
+
+    <div class="tlabel">
+      <span class="icon">🎤</span>
+      <div>
+        UX Design Sharing — Mar 31<span class="chip chip-now">PREP NOW</span>
+        <div class="meta">Decide topic, prepare, present</div>
+      </div>
+    </div>
+    <div class="cell now">
+      <div class="bar c-event">Decide topic &amp; outline</div>
+    </div>
+    <div class="cell">
+      <div class="bar c-event">Prep slides / materials</div>
+    </div>
+    <div class="cell">
+      <div class="milestone"><div class="mdot">🎤</div></div>
+    </div>
+    <div class="cell"></div>
+
+    <div class="tlabel">
+      <span class="icon">🏛️</span>
+      <div>
+        Town Hall – BSG designers &amp; AI <span class="chip chip-soon">APR 6</span>
+        <div class="meta">15-min share: what BSG designers have done with AI</div>
+      </div>
+    </div>
+    <div class="cell now"></div>
+    <div class="cell">
+      <div class="bar c-event">Gather examples &amp; draft brief</div>
+    </div>
+    <div class="cell">
+      <div class="bar c-event">Prep 15-min presentation</div>
+    </div>
+    <div class="cell">
+      <div class="milestone"><div class="mdot">🏛️</div></div>
+    </div>
+
+    <!-- ─── SYNC REVAMP ─── -->
+    <div class="section">🔁 Product–Design Sync Revamp</div>
+
+    <div class="tlabel">
+      <span class="icon">🔁</span>
+      <div>
+        Redesign the sync format
+        <div class="meta">More inclusive, more useful for the team</div>
+      </div>
+    </div>
+    <div class="cell now">
+      <div class="bar c-sync">Audit current format</div>
+      <div class="bar c-sync">Collect team feedback</div>
+    </div>
+    <div class="cell">
+      <div class="bar c-sync">Draft new agenda</div>
+      <div class="bar c-sync">Share draft with team</div>
+    </div>
+    <div class="cell">
+      <div class="bar c-sync">Pilot new format ✦</div>
+    </div>
+    <div class="cell">
+      <div class="bar c-sync">Retro &amp; refine</div>
+    </div>
+
+    <!-- ─── WORKSHOPS ─── -->
+    <div class="section">🧠 Workshop Planning</div>
+
+    <div class="tlabel">
+      <span class="icon">✨</span>
+      <div>
+        UX Workshop: Designing for AI
+        <div class="meta">For your UX team</div>
+      </div>
+    </div>
+    <div class="cell now"></div>
+    <div class="cell">
+      <div class="bar c-plan">Define format &amp; goals</div>
+    </div>
+    <div class="cell">
+      <div class="bar c-plan">Build agenda + invite</div>
+    </div>
+    <div class="cell">
+      <div class="bar c-plan">Finalise materials</div>
+    </div>
+
+    <!-- ─── PROJECTS ─── -->
+    <div class="section">🛠 Project Work</div>
+
+    <div class="tlabel">
+      <span class="icon">📋</span>
+      <div>
+        Scheduling project — design tickets
+        <div class="meta">Design enhancements, ongoing</div>
+      </div>
+    </div>
+    <div class="cell now">
+      <div class="bar c-project">Triage &amp; prioritise</div>
+    </div>
+    <div class="cell">
+      <div class="bar c-project">Active design work</div>
+    </div>
+    <div class="cell">
+      <div class="bar c-project">Active design work</div>
+    </div>
+    <div class="cell">
+      <div class="bar c-project">Active design work</div>
+    </div>
+
+    <div class="tlabel">
+      <span class="icon">🔄</span>
+      <div>
+        Recurring booking — kickoffs &amp; deskchecks<span class="chip chip-soon">INCOMING</span>
+        <div class="meta">Timing TBD — keep capacity free</div>
+      </div>
+    </div>
+    <div class="cell now"></div>
+    <div class="cell">
+      <div class="bar c-project faint">Monitor for kickoff</div>
+    </div>
+    <div class="cell">
+      <div class="bar c-project">Kickoff expected</div>
+    </div>
+    <div class="cell">
+      <div class="bar c-project">Deskchecks &amp; review</div>
+    </div>
+
+  </div>
+
+  <!-- ── Bottom section ── -->
+  <div class="bottom-grid">
+
+    <!-- Weekly action cards -->
+    <div class="card">
+      <h3>⚡ Week 1 — Mar 17–21</h3>
+      <ul>
+        <li><input type="checkbox" id="w1t1"><label for="w1t1">Book &amp; have augmented designer check-in</label></li>
+        <li><input type="checkbox" id="w1t2"><label for="w1t2">Welfare chat with intern</label></li>
+        <li><input type="checkbox" id="w1t3"><label for="w1t3">Confirm Mar 31 sharing topic and draft outline</label></li>
+        <li><input type="checkbox" id="w1t4"><label for="w1t4">Start triage on scheduling design tickets</label></li>
+        <li><input type="checkbox" id="w1t5"><label for="w1t5">Send a short Slack/message to team: "what's one thing that would make our sync more useful for you?"</label></li>
+        <li><input type="checkbox" id="w1t6"><label for="w1t6">Submit exam expense claim <span style="background:#fef3c7;color:#92400e;border-radius:4px;padding:1px 6px;font-size:10px;font-weight:700;margin-left:4px;">due Wed 25 Mar</span></label></li>
+        <li><input type="checkbox" id="w1t7" checked><label for="w1t7">✅ Created FigJam deck for NN/g portion of AI-BookingSG-UX workshop</label></li>
+        <li><input type="checkbox" id="w1t8"><label for="w1t8">Brainstorm workshop part 2 — designers map current product pain points, then Crazy 8s for AI &amp; non-AI solutions</label></li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>📅 Week 2 — Mar 24–28</h3>
+      <ul>
+        <li><input type="checkbox" id="w2t1"><label for="w2t1">Finalise and prep materials for Mar 31 sharing</label></li>
+        <li><input type="checkbox" id="w2t2"><label for="w2t2">Gather examples of BSG designers' AI work for Town Hall</label></li>
+        <li><input type="checkbox" id="w2t3"><label for="w2t3">Draft the new sync agenda based on team feedback</label></li>
+        <li><input type="checkbox" id="w2t4"><label for="w2t4">Share draft sync format with team for input</label></li>
+        <li><input type="checkbox" id="w2t5"><label for="w2t5">Start sketching out the AI workshop structure</label></li>
+        <li><input type="checkbox" id="w2t6"><label for="w2t6">Continue scheduling tickets</label></li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>🗓 Week 3 — Mar 31–Apr 4</h3>
+      <ul>
+        <li><input type="checkbox" id="w3t1"><label for="w3t1">🎤 UX Design Sharing — Tue 31 Mar</label></li>
+        <li><input type="checkbox" id="w3t2"><label for="w3t2">Prep and finalise 15-min Town Hall deck (due Mon Apr 6!)</label></li>
+        <li><input type="checkbox" id="w3t3"><label for="w3t3">Pilot the new sync format this week</label></li>
+        <li><input type="checkbox" id="w3t4"><label for="w3t4">Recurring booking kickoff expected — confirm timing</label></li>
+        <li><input type="checkbox" id="w3t5"><label for="w3t5">Keep building out AI workshop agenda</label></li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>🔍 Week 4 — Apr 6–11</h3>
+      <ul>
+        <li><input type="checkbox" id="w4t1"><label for="w4t1">🏛️ Town Hall sharing — Mon 6 Apr (15 min, AI in BSG)</label></li>
+        <li><input type="checkbox" id="w4t2"><label for="w4t2">Retro on new sync format: what landed, what to tweak</label></li>
+        <li><input type="checkbox" id="w4t3"><label for="w4t3">Recurring booking deskchecks + review</label></li>
+        <li><input type="checkbox" id="w4t4"><label for="w4t4">Finalise AI workshop materials and lock in date</label></li>
+        <li><input type="checkbox" id="w4t5"><label for="w4t5">Augmented designer: 1-month check-in</label></li>
+      </ul>
+    </div>
+
+    <!-- Sync redesign — full width -->
+    <div class="sync-card">
+      <h2>🔁 Ideas for the New Product–Design Sync Format</h2>
+      <p class="desc">
+        Goal: make the sync feel genuinely useful — a space where everyone feels heard, blockers surface early, and the team leaves with clarity. Here's a suggested structure you can adapt.
+      </p>
+
+      <div class="sync-sections">
+
+        <div class="sync-block">
+          <h4>🙋 Check-in round <span style="font-weight:400;color:#aaa;">(~5 min)</span></h4>
+          <ul>
+            <li>One word or one sentence: how is everyone showing up today?</li>
+            <li>Keeps it human, surfaces energy levels</li>
+            <li>Rotate who goes first so it doesn't feel predictable</li>
+          </ul>
+        </div>
+
+        <div class="sync-block">
+          <h4>📣 Designer updates <span style="font-weight:400;color:#aaa;">(~10–15 min)</span></h4>
+          <ul>
+            <li>Each designer shares: what I'm working on, anything notable</li>
+            <li>Keep it punchy — 2 min max per person</li>
+            <li>Encourage screenshots or a quick Figma frame</li>
+            <li>Async option: pre-fill a shared doc before the sync</li>
+          </ul>
+        </div>
+
+        <div class="sync-block">
+          <h4>🚧 Blockers &amp; support <span style="font-weight:400;color:#aaa;">(~5–10 min)</span></h4>
+          <ul>
+            <li>"Where do you need input or a second pair of eyes?"</li>
+            <li>Opens space to ask for help without it feeling awkward</li>
+            <li>You or a peer can volunteer to follow up after the call</li>
+          </ul>
+        </div>
+
+        <div class="sync-block">
+          <h4>📌 Product alignment <span style="font-weight:400;color:#aaa;">(~5 min)</span></h4>
+          <ul>
+            <li>Any product updates that affect design priorities?</li>
+            <li>Upcoming kickoffs, deadlines, or context shifts</li>
+            <li>Helps the team feel in-the-loop, not surprised</li>
+          </ul>
+        </div>
+
+        <div class="sync-block">
+          <h4>💡 Optional: rotating slot <span style="font-weight:400;color:#aaa;">(~5 min)</span></h4>
+          <ul>
+            <li>Inspiration share, a UX find, a quick retro, a tip</li>
+            <li>One person owns it each week — keeps it fresh</li>
+            <li>Great for the intern or augmented designer to participate</li>
+          </ul>
+        </div>
+
+        <div class="sync-block">
+          <h4>✅ Close-out <span style="font-weight:400;color:#aaa;">(~2 min)</span></h4>
+          <ul>
+            <li>Any actions? Who owns them?</li>
+            <li>One thing each person is taking away</li>
+            <li>Leave on a positive or energising note</li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="timing-note">
+        💬 <strong>Suggested total runtime: 30–40 min.</strong> If your current sync runs long and feels unfocused, try timeboxing each section with a visible timer. You could also run a retro after the first pilot to see what the team wants to keep, drop, or add — makes them co-owners of the format.
+      </div>
+
+    </div>
+
+  </div>
+
+  <script>
+    // Save & restore checkbox states via localStorage
+    const STORAGE_KEY = 'lily-priorities-checks';
+
+    function saveState() {
+      const state = {};
+      document.querySelectorAll('.card input[type="checkbox"]').forEach(cb => {
+        state[cb.id] = cb.checked;
+      });
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    }
+
+    function restoreState() {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (!saved) return;
+      const state = JSON.parse(saved);
+      document.querySelectorAll('.card input[type="checkbox"]').forEach(cb => {
+        if (state[cb.id] !== undefined) cb.checked = state[cb.id];
+      });
+    }
+
+    document.querySelectorAll('.card input[type="checkbox"]').forEach(cb => {
+      cb.addEventListener('change', saveState);
+    });
+
+    restoreState();
+
+    // If this is the first load (no saved state yet), save the HTML defaults
+    // so pre-checked items are persisted immediately
+    if (!localStorage.getItem(STORAGE_KEY)) saveState();
+  </script>
+</body>
+</html>
