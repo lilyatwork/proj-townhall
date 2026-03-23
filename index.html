@@ -45,13 +45,14 @@
       position: fixed;
       top: 0; left: 0; right: 0;
       height: 52px;
-      background: rgba(255,255,255,0.92);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
+      background: rgba(255,255,255,0.55);
+      backdrop-filter: blur(28px) saturate(2.2);
+      -webkit-backdrop-filter: blur(28px) saturate(2.2);
       z-index: 999;
       display: flex;
       align-items: flex-end;
-      border-bottom: 1px solid rgba(0,0,0,0.06);
+      border-bottom: 1px solid rgba(255,255,255,0.75);
+      box-shadow: 0 1px 0 rgba(0,0,0,0.04), inset 0 1px 0 rgba(255,255,255,0.9);
     }
 
     #progress-track {
@@ -117,12 +118,12 @@
       z-index: 2;
     }
 
-    /* Per-section gradient backgrounds (complementary palette pairs) */
-    #s1 { background: linear-gradient(135deg, #fff4db 0%, #ffe8ee 100%); }
-    #s2 { background: linear-gradient(135deg, #dceef8 0%, #fdfce0 100%); }
-    #s3 { background: linear-gradient(135deg, #ffe8ec 0%, #dceef8 100%); }
-    #s4 { background: linear-gradient(135deg, #fdfce0 0%, #ddf5ea 100%); }
-    #s5 { background: linear-gradient(135deg, #fff4db 0%, #dceef8 100%); }
+    /* Per-section gradient backgrounds — more vivid so glass shows through */
+    #s1 { background: linear-gradient(135deg, #ffedb8 0%, #ffd4e4 100%); }
+    #s2 { background: linear-gradient(135deg, #c8e4f8 0%, #fdf6c8 100%); }
+    #s3 { background: linear-gradient(135deg, #ffd4da 0%, #c8e4f8 100%); }
+    #s4 { background: linear-gradient(135deg, #fdf6c8 0%, #c8f0de 100%); }
+    #s5 { background: linear-gradient(135deg, #c8f0de 0%, #c8e4f8 100%); }
 
     /* ─── Overflow Illustrations ────────────────────────────────── */
     .section-illustration {
@@ -220,18 +221,28 @@
     .cards-1 { grid-template-columns: 1fr; }
 
     .card {
-      background: var(--white);
+      background: rgba(255,255,255,0.52);
+      backdrop-filter: blur(22px) saturate(1.9);
+      -webkit-backdrop-filter: blur(22px) saturate(1.9);
       border-radius: var(--radius);
       padding: 28px 28px 28px 24px;
-      box-shadow: var(--shadow);
-      border-left: 5px solid transparent;
+      border: 1.5px solid rgba(255,255,255,0.72);
+      border-left: 5px solid transparent; /* accent colour set inline */
+      box-shadow:
+        inset 0 1.5px 0 rgba(255,255,255,0.88),
+        0 8px 32px rgba(0,0,0,0.07),
+        0 2px 8px rgba(0,0,0,0.04);
       position: relative;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
     }
 
     .card:hover {
       transform: translateY(-3px);
-      box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+      background: rgba(255,255,255,0.68);
+      box-shadow:
+        inset 0 1.5px 0 rgba(255,255,255,0.95),
+        0 16px 48px rgba(0,0,0,0.1),
+        0 4px 12px rgba(0,0,0,0.05);
     }
 
     .card-tool {
@@ -269,7 +280,13 @@
       margin-top: 32px;
       padding: 24px 28px;
       border-radius: var(--radius);
-      background: rgba(0,0,0,0.03);
+      background: rgba(255,255,255,0.42);
+      backdrop-filter: blur(18px) saturate(1.7);
+      -webkit-backdrop-filter: blur(18px) saturate(1.7);
+      border: 1.5px solid rgba(255,255,255,0.65);
+      box-shadow:
+        inset 0 1.5px 0 rgba(255,255,255,0.82),
+        0 4px 20px rgba(0,0,0,0.06);
       font-style: italic;
       font-size: clamp(1.1rem, 2vw, 1.35rem);
       color: var(--text);
@@ -305,6 +322,13 @@
       line-height: 1.55;
       margin-top: 20px;
       font-weight: 600;
+      /* Glass override — background tint from inline style kept for colour identity */
+      backdrop-filter: blur(16px) saturate(1.6);
+      -webkit-backdrop-filter: blur(16px) saturate(1.6);
+      border: 1.5px solid rgba(255,255,255,0.6);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.75),
+        0 4px 16px rgba(0,0,0,0.05);
     }
 
     .callout-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: 1px; }
@@ -519,17 +543,21 @@
       width: 48px;
       height: 48px;
       border-radius: 50%;
-      background: var(--honey-bronze);
+      background: rgba(255,255,255,0.5);
+      backdrop-filter: blur(20px) saturate(2);
+      -webkit-backdrop-filter: blur(20px) saturate(2);
       color: #111111;
-      border: none;
+      border: 1.5px solid rgba(255,255,255,0.72);
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.14);
+      box-shadow:
+        inset 0 1.5px 0 rgba(255,255,255,0.9),
+        0 4px 20px rgba(0,0,0,0.12);
       opacity: 0;
       transform: translateY(12px);
-      transition: opacity 0.3s ease, transform 0.3s ease;
+      transition: opacity 0.3s ease, transform 0.3s ease, background 0.2s ease;
       pointer-events: none;
       z-index: 998;
     }
@@ -677,6 +705,116 @@
     .section-intro .section-illustration.animate-in.visible {
       opacity: 0.9;
       transform: scale(1) !important;
+    }
+
+    /* ─── Liquid Glass System ──────────────────────────────────── */
+
+    /* Section chip — glass base (overrides inline background tints) */
+    .section-chip {
+      background: rgba(255,255,255,0.38) !important;
+      backdrop-filter: blur(14px) saturate(1.7);
+      -webkit-backdrop-filter: blur(14px) saturate(1.7);
+      border: 1.5px solid rgba(255,255,255,0.62);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.78),
+        0 2px 12px rgba(0,0,0,0.05);
+    }
+
+    /* Chip number — keep solid colour but add a gloss highlight via ::after */
+    .chip-number {
+      position: relative;
+      overflow: hidden;
+    }
+    .chip-number::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      background: linear-gradient(160deg,
+        rgba(255,255,255,0.38) 0%,
+        rgba(255,255,255,0.06) 50%,
+        rgba(0,0,0,0.06) 100%);
+      pointer-events: none;
+    }
+
+    /* Hero pills — glass gloss over solid colour */
+    .pill {
+      position: relative;
+      overflow: hidden;
+    }
+    .pill::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 100px;
+      background: linear-gradient(160deg,
+        rgba(255,255,255,0.34) 0%,
+        rgba(255,255,255,0.08) 45%,
+        rgba(0,0,0,0.06) 100%);
+      pointer-events: none;
+    }
+
+    /* Sticky nav pills — glass when inactive, tinted glass when active */
+    .nav-pill {
+      background: rgba(255,255,255,0.32);
+      backdrop-filter: blur(14px) saturate(1.6);
+      -webkit-backdrop-filter: blur(14px) saturate(1.6);
+      border: 1.5px solid rgba(255,255,255,0.55);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.75);
+    }
+    .nav-pill:hover {
+      background: rgba(255,255,255,0.52);
+      border-color: rgba(255,255,255,0.72);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.88), 0 3px 10px rgba(0,0,0,0.08);
+    }
+    .nav-pill.active {
+      /* background set by JS; glass gloss on top via ::after */
+      position: relative;
+      overflow: hidden;
+    }
+    .nav-pill.active::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 100px;
+      background: linear-gradient(160deg,
+        rgba(255,255,255,0.30) 0%,
+        rgba(255,255,255,0.06) 50%,
+        rgba(0,0,0,0.04) 100%);
+      pointer-events: none;
+    }
+
+    /* QR block */
+    .qr-block {
+      background: rgba(255,255,255,0.45);
+      backdrop-filter: blur(18px) saturate(1.8);
+      -webkit-backdrop-filter: blur(18px) saturate(1.8);
+      border: 1.5px solid rgba(255,255,255,0.68);
+      box-shadow:
+        inset 0 1.5px 0 rgba(255,255,255,0.85),
+        0 4px 20px rgba(0,0,0,0.06);
+    }
+
+    /* Start-here items */
+    .start-item {
+      background: rgba(255,255,255,0.42);
+      backdrop-filter: blur(16px) saturate(1.7);
+      -webkit-backdrop-filter: blur(16px) saturate(1.7);
+      border: 1.5px solid rgba(255,255,255,0.65);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.82),
+        0 3px 12px rgba(0,0,0,0.05);
+    }
+
+    /* Closing message */
+    .closing-message {
+      background: rgba(255,255,255,0.48);
+      backdrop-filter: blur(20px) saturate(1.8);
+      -webkit-backdrop-filter: blur(20px) saturate(1.8);
+      border: 1.5px solid rgba(255,255,255,0.7);
+      box-shadow:
+        inset 0 1.5px 0 rgba(255,255,255,0.88),
+        0 6px 24px rgba(0,0,0,0.06);
     }
 
     /* ─── Scrollbar ────────────────────────────────────────────── */
