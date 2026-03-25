@@ -122,8 +122,8 @@
     #s1 { background: linear-gradient(135deg, #ffedb8 0%, #ffd4e4 100%); }
     #s2 { background: linear-gradient(135deg, #c8e4f8 0%, #fdf6c8 100%); }
     #s3 { background: linear-gradient(135deg, #ffd4da 0%, #c8e4f8 100%); }
-    #s4 { background: linear-gradient(135deg, #fde8d8 0%, #ffd4c4 100%); }
-    #s5 { background: linear-gradient(135deg, #c8ede9 0%, #d8f5f2 100%); }
+    #s4 { background: linear-gradient(135deg, #fde8d8 0%, #fdf6c8 100%); }
+    #s5 { background: linear-gradient(135deg, #c8ede9 0%, #ffd4da 100%); }
 
     /* ─── Overflow Illustrations ────────────────────────────────── */
     .section-illustration {
@@ -443,6 +443,9 @@
       /* text color set by JS via getContrastColor() */
     }
 
+    /* ─── Mobile nav dropdown (hidden on desktop) ──────────────── */
+    #nav-dropdown { display: none; }
+
     /* ─── Lesson Block (s5) ────────────────────────────────────── */
     .lesson-block {
       background: var(--white);
@@ -608,6 +611,81 @@
       }
 
       #scroll-top-btn { bottom: 20px; right: 20px; width: 44px; height: 44px; }
+
+      /* Mobile nav: hide pills, show dropdown */
+      #nav-pills { display: none !important; }
+      #nav-dropdown {
+        display: block;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s ease;
+      }
+      #progress-bar.nav-visible #nav-dropdown {
+        opacity: 1;
+        pointer-events: auto;
+      }
+      #nav-dropdown-btn {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        border-radius: 100px;
+        padding: 6px 14px;
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 0.03em;
+        background: rgba(255,255,255,0.55);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1.5px solid rgba(255,255,255,0.7);
+        box-shadow: inset 0 1px 0 rgba(255,255,255,0.8), 0 2px 8px rgba(0,0,0,0.08);
+        color: var(--text);
+        cursor: pointer;
+        white-space: nowrap;
+      }
+      #nav-dropdown-menu {
+        display: none;
+        flex-direction: column;
+        position: fixed;
+        top: 52px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(255,255,255,0.88);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border: 1.5px solid rgba(255,255,255,0.7);
+        border-radius: 14px;
+        box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+        padding: 6px;
+        min-width: 210px;
+        z-index: 1000;
+      }
+      #nav-dropdown-menu.open { display: flex; }
+      .nav-dropdown-item {
+        padding: 11px 14px;
+        border-radius: 9px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        text-decoration: none;
+        color: var(--text);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        transition: background 0.15s ease;
+      }
+      .nav-dropdown-item:hover { background: rgba(0,0,0,0.05); }
+      .nav-dropdown-item.active {
+        background: rgba(0,0,0,0.06);
+        font-weight: 700;
+      }
+      .nav-dropdown-item .item-dot {
+        width: 8px; height: 8px;
+        border-radius: 50%;
+        flex-shrink: 0;
+      }
 
       .section-intro { flex-direction: column !important; gap: 28px; }
       .section-intro .section-illustration { width: 130px !important; margin: 0 auto; order: -1; }
@@ -826,7 +904,6 @@
 <body>
 
   <!-- Sparkle canvas: fixed overlay, pointer-events none -->
-  <canvas id="sparkle-canvas" style="position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:9999;"></canvas>
 
   <!-- ─── Progress Bar ─────────────────────────────────────── -->
   <div id="progress-bar" role="progressbar" aria-label="Page progress">
@@ -839,6 +916,18 @@
         <a class="nav-pill" href="#s4" data-section="4" data-color="#f5b89a">✍️ Working with AI</a>
         <a class="nav-pill" href="#s5" data-section="5" data-color="#7ecec4">⚙️ Daily Workflow</a>
       </nav>
+      <div id="nav-dropdown" aria-label="Chapter navigation">
+        <button id="nav-dropdown-btn" aria-expanded="false" aria-haspopup="true">
+          <span id="nav-dropdown-label">Sections</span>
+          <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="2,3 5,7 8,3"/></svg>
+        </button>
+        <div id="nav-dropdown-menu" role="menu">
+          <a class="nav-dropdown-item" href="#s2" data-section="2" data-color="#007cbe">⚡ Building</a>
+          <a class="nav-dropdown-item" href="#s3" data-section="3" data-color="#ffa3af">🔬 Research</a>
+          <a class="nav-dropdown-item" href="#s4" data-section="4" data-color="#f5b89a">✍️ Working with AI</a>
+          <a class="nav-dropdown-item" href="#s5" data-section="5" data-color="#7ecec4">⚙️ Daily Workflow</a>
+        </div>
+      </div>
       <span id="section-counter">01 / 06</span>
     </div>
     <div id="progress-track">
@@ -993,12 +1082,12 @@
           <div class="card" style="border-left-color: #007cbe;">
             <div class="card-tool" style="color: #004d7a;">
               <span class="card-tool-dot" style="background: #007cbe;"></span>
-              Claude Code
+              Google Stitch
             </div>
-            <h3>0 to 1 MVPs</h3>
+            <h3>AI-Generated UI Prototypes</h3>
             <p>
-              Useful for generating 0 to 1 MVPs in a shorter time than traditional development tools.
-              Up next: How can designers use Claude Code to generate prototypes for testing and how can we integrate it with Figma MCP?
+              Google Stitch lets you generate functional UI screens from text prompts and sketches. Useful for rapidly exploring visual directions and getting to a tangible design artefact without starting from scratch.
+              Still being explored — early results suggest strong potential for early-stage ideation and stakeholder alignment.
             </p>
           </div>
         </div>
@@ -1012,6 +1101,20 @@
             title="Figma Make prototype"
             allowfullscreen
           ></iframe>
+        </div>
+      </div>
+
+      <div class="cards animate-in delay-5" style="margin-top: 32px;">
+        <div class="card" style="border-left-color: #007cbe;">
+          <div class="card-tool" style="color: #004d7a;">
+            <span class="card-tool-dot" style="background: #007cbe;"></span>
+            Claude Code
+          </div>
+          <h3>0 to 1 MVPs</h3>
+          <p>
+            Useful for generating 0 to 1 MVPs in a shorter time than traditional development tools.
+            Up next: How can designers use Claude Code to generate prototypes for testing and how can we integrate it with Figma MCP?
+          </p>
         </div>
       </div>
     </div>
@@ -1283,30 +1386,6 @@
           </div>
         </div>
 
-        <div class="start-here-grid">
-          <div class="start-item">
-            <strong>Try this week</strong>
-            Paste your next project brief into an AI tool and ask it to identify the top 3 open questions.
-          </div>
-          <div class="start-item">
-            <strong>And this</strong>
-            Next time you have research notes, ask NotebookLM to surface the top 5 themes — then check them against your own read.
-          </div>
-          <div class="start-item">
-            <strong>And this</strong>
-            Write a one-sentence prompt for a task you do repeatedly. Refine it until the output is actually useful.
-          </div>
-        </div>
-
-        <div class="closing-message">
-          <p>
-            AI tools work best when they reduce friction, not add it.
-            Start with a real problem, try a tool, and reflect on what actually changed.
-          </p>
-          <p style="font-weight: 700; color: var(--text); margin-bottom: 0;">
-            The best AI workflow is the one you'll actually use. 🧡
-          </p>
-        </div>
       </div>
     </div>
 
@@ -1361,6 +1440,45 @@
         pill.classList.toggle('active', isActive);
         pill.style.background = isActive ? pill.dataset.color : '';
         pill.style.color = isActive ? getContrastColor(pill.dataset.color) : '';
+      });
+      // Sync mobile dropdown
+      const dropItems = document.querySelectorAll('.nav-dropdown-item');
+      dropItems.forEach(item => {
+        const isActive = item.dataset.section === String(idx);
+        item.classList.toggle('active', isActive);
+        const dot = item.querySelector('.item-dot');
+        if (dot) dot.style.background = isActive ? item.dataset.color : 'rgba(0,0,0,0.2)';
+      });
+      const activeItem = document.querySelector(`.nav-dropdown-item[data-section="${idx}"]`);
+      const label = document.getElementById('nav-dropdown-label');
+      if (activeItem && label) label.textContent = activeItem.textContent.trim();
+    }
+
+    // ── Mobile dropdown toggle ────────────────────────────────────
+    const dropBtn  = document.getElementById('nav-dropdown-btn');
+    const dropMenu = document.getElementById('nav-dropdown-menu');
+    if (dropBtn && dropMenu) {
+      // Add color dots to dropdown items
+      document.querySelectorAll('.nav-dropdown-item').forEach(item => {
+        const dot = document.createElement('span');
+        dot.className = 'item-dot';
+        dot.style.background = 'rgba(0,0,0,0.2)';
+        item.prepend(dot);
+      });
+      dropBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const open = dropMenu.classList.toggle('open');
+        dropBtn.setAttribute('aria-expanded', open);
+      });
+      dropMenu.querySelectorAll('.nav-dropdown-item').forEach(item => {
+        item.addEventListener('click', () => {
+          dropMenu.classList.remove('open');
+          dropBtn.setAttribute('aria-expanded', 'false');
+        });
+      });
+      document.addEventListener('click', () => {
+        dropMenu.classList.remove('open');
+        dropBtn.setAttribute('aria-expanded', 'false');
       });
     }
 
@@ -1478,71 +1596,6 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 
-    // ── Cursor sparkle ───────────────────────────────────────────
-    const sparkleCanvas = document.getElementById('sparkle-canvas');
-    const ctx = sparkleCanvas.getContext('2d');
-    let sparkles = [];
-    const SPARKLE_COLORS = ['#fbaf00', '#ffa3af', '#f5b89a', '#7ecec4', '#007cbe'];
-
-    function resizeSparkle() {
-      sparkleCanvas.width  = window.innerWidth;
-      sparkleCanvas.height = window.innerHeight;
-    }
-    resizeSparkle();
-    window.addEventListener('resize', resizeSparkle, { passive: true });
-
-    document.addEventListener('mousemove', e => {
-      for (let i = 0; i < 4; i++) {
-        sparkles.push({
-          x:       e.clientX + (Math.random() - 0.5) * 14,
-          y:       e.clientY + (Math.random() - 0.5) * 14,
-          r:       Math.random() * 3.5 + 1.5,
-          color:   SPARKLE_COLORS[Math.floor(Math.random() * SPARKLE_COLORS.length)],
-          vx:      (Math.random() - 0.5) * 1.4,
-          vy:      -(Math.random() * 2 + 0.5),
-          life:    0,
-          maxLife: Math.random() * 20 + 22
-        });
-      }
-    });
-
-    function drawSparkles() {
-      ctx.clearRect(0, 0, sparkleCanvas.width, sparkleCanvas.height);
-      sparkles = sparkles.filter(s => s.life < s.maxLife);
-      sparkles.forEach(s => {
-        s.life++;
-        s.x  += s.vx;
-        s.y  += s.vy;
-        s.vy += 0.07; // gentle gravity drift
-
-        const progress = s.life / s.maxLife;
-        ctx.globalAlpha = (1 - progress) * 0.82;
-        ctx.fillStyle = s.color;
-        ctx.beginPath();
-
-        if (s.r < 2.8) {
-          // Small: shrinking circle
-          ctx.arc(s.x, s.y, s.r * (1 - progress * 0.3), 0, Math.PI * 2);
-        } else {
-          // Larger: 4-pointed star (filled, closable path)
-          const sz    = s.r * (1 - progress * 0.4);
-          const inner = sz * 0.42;
-          ctx.moveTo(s.x,         s.y - sz);
-          ctx.lineTo(s.x + inner, s.y - inner);
-          ctx.lineTo(s.x + sz,    s.y);
-          ctx.lineTo(s.x + inner, s.y + inner);
-          ctx.lineTo(s.x,         s.y + sz);
-          ctx.lineTo(s.x - inner, s.y + inner);
-          ctx.lineTo(s.x - sz,    s.y);
-          ctx.lineTo(s.x - inner, s.y - inner);
-          ctx.closePath();
-        }
-        ctx.fill();
-      });
-      ctx.globalAlpha = 1;
-      requestAnimationFrame(drawSparkles);
-    }
-    drawSparkles();
   </script>
 
 </body>
