@@ -16,15 +16,15 @@
     :root {
       --font: 'Inclusive Sans', system-ui, sans-serif;
       --white: #ffffff;
-      --text: #111111;
+      --text: #282828;
       --text-muted: #6b5e52;
       --bg: #f7ede2;
       --honey-bronze: #fbaf00;
       --linen:        #f7ede2;
       --cotton-rose:  #ffa3af;
       --muted-teal:   #007cbe;
-      --light-coral:  #ffd639;
-      --soft-lilac:   #00af54;
+      --light-coral:  #f5b89a;
+      --soft-lilac:   #7ecec4;
       --radius: 16px;
       --shadow: 0 4px 24px rgba(0,0,0,0.07);
       --progress-h: 5px;
@@ -122,8 +122,8 @@
     #s1 { background: linear-gradient(135deg, #ffedb8 0%, #ffd4e4 100%); }
     #s2 { background: linear-gradient(135deg, #c8e4f8 0%, #fdf6c8 100%); }
     #s3 { background: linear-gradient(135deg, #ffd4da 0%, #c8e4f8 100%); }
-    #s4 { background: linear-gradient(135deg, #fdf6c8 0%, #c8f0de 100%); }
-    #s5 { background: linear-gradient(135deg, #c8f0de 0%, #c8e4f8 100%); }
+    #s4 { background: linear-gradient(135deg, #fde8d8 0%, #ffd4c4 100%); }
+    #s5 { background: linear-gradient(135deg, #c8ede9 0%, #d8f5f2 100%); }
 
     /* ─── Overflow Illustrations ────────────────────────────────── */
     .section-illustration {
@@ -183,7 +183,7 @@
       border-radius: 50%;
       font-size: 0.8rem;
       font-weight: 700;
-      color: #111111;
+      color: #282828;
     }
 
     /* ─── Headings ─────────────────────────────────────────────── */
@@ -378,18 +378,17 @@
       padding: 8px 18px;
       font-size: 0.82rem;
       font-weight: 700;
-      color: #111111;
+      color: #282828;
       letter-spacing: 0.04em;
       text-decoration: none;
       display: inline-block;
-      transition: transform 0.18s ease, box-shadow 0.18s ease;
+      transition: box-shadow 0.18s ease;
       cursor: pointer;
     }
 
-    /* Hover: ring in the pill's own text colour (naturally complements bg) */
+    /* Hover: border ring in a darker shade of the pill's own color */
     .pill:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 0 0 2.5px currentColor;
+      box-shadow: 0 0 0 2.5px var(--pill-hover-border, #333);
     }
 
     /* ─── Sticky chapter nav (appears after hero scrolls away) ── */
@@ -546,7 +545,7 @@
       background: rgba(255,255,255,0.5);
       backdrop-filter: blur(20px) saturate(2);
       -webkit-backdrop-filter: blur(20px) saturate(2);
-      color: #111111;
+      color: #282828;
       border: 1.5px solid rgba(255,255,255,0.72);
       cursor: pointer;
       display: flex;
@@ -837,8 +836,8 @@
       <nav id="nav-pills" aria-label="Chapter navigation">
         <a class="nav-pill" href="#s2" data-section="2" data-color="#007cbe">⚡ Building</a>
         <a class="nav-pill" href="#s3" data-section="3" data-color="#ffa3af">🔬 Research</a>
-        <a class="nav-pill" href="#s4" data-section="4" data-color="#ffd639">✍️ Working with AI</a>
-        <a class="nav-pill" href="#s5" data-section="5" data-color="#00af54">⚙️ Daily Workflow</a>
+        <a class="nav-pill" href="#s4" data-section="4" data-color="#f5b89a">✍️ Working with AI</a>
+        <a class="nav-pill" href="#s5" data-section="5" data-color="#7ecec4">⚙️ Daily Workflow</a>
       </nav>
       <span id="section-counter">01 / 06</span>
     </div>
@@ -869,10 +868,10 @@
         </p>
 
         <div class="chapter-pills">
-          <a class="pill" href="#s2" style="background:#007cbe; color:#ffffff;">⚡ Building</a>
-          <a class="pill" href="#s3" style="background:#ffa3af; color:#111111;">🔬 Research</a>
-          <a class="pill" href="#s4" style="background:#ffd639; color:#111111;">✍️ Working with AI</a>
-          <a class="pill" href="#s5" style="background:#00af54; color:#ffffff;">⚙️ Daily Workflow</a>
+          <a class="pill" href="#s2" style="background:#6baed6; color:#282828; --pill-hover-border:#2271a3;">⚡ Building</a>
+          <a class="pill" href="#s3" style="background:#f4b8c0; color:#282828; --pill-hover-border:#b85560;">🔬 Research</a>
+          <a class="pill" href="#s4" style="background:#f5b89a; color:#282828; --pill-hover-border:#c4603a;">✍️ Working with AI</a>
+          <a class="pill" href="#s5" style="background:#7ecec4; color:#282828; --pill-hover-border:#2a8a82;">⚙️ Daily Workflow</a>
         </div>
 
         <div class="qr-block">
@@ -1009,7 +1008,7 @@
         <p class="proto-label">Interactive prototype — try it</p>
         <div class="proto-frame">
           <iframe
-            src="https://full-gills-62820014.figma.site"
+            src="https://onion-sew-84529607.figma.site/"
             title="Figma Make prototype"
             allowfullscreen
           ></iframe>
@@ -1116,15 +1115,15 @@
 
 
   <!-- ─── Section 04: Writing & Working with AI ───────────────── -->
-  <section class="section illus-left" id="s4" data-label="Working with AI" data-accent="#ffd639" data-index="4">
+  <section class="section illus-left" id="s4" data-label="Working with AI" data-accent="#f5b89a" data-index="4">
 
     <div class="section-inner">
       <div class="section-content animate-in">
         <div class="section-intro">
           <div class="section-intro-text">
-            <div class="section-chip" style="background: rgba(255,214,57,0.2);">
-              <span class="chip-number" style="background: #ffd639;">04</span>
-              <span style="color: #7a6200;">Writing &amp; Working with AI</span>
+            <div class="section-chip" style="background: rgba(245,184,154,0.2);">
+              <span class="chip-number" style="background: #f5b89a;">04</span>
+              <span style="color: #9a4a20;">Writing &amp; Working with AI</span>
             </div>
 
             <span class="section-emoji" role="img" aria-label="Writing hand">✍️</span>
@@ -1139,26 +1138,26 @@
           <!-- S4 Illustration: Pencil + speech bubble -->
           <div class="section-illustration animate-in delay-1">
             <svg viewBox="0 0 200 210" fill="none" xmlns="http://www.w3.org/2000/svg" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M104,28 C84,28 67,41 67,57 C67,73 84,86 104,86 C113,86 121,83 127,78 L140,86 L134,72 C140,67 141,62 141,57 C141,41 124,28 104,28 Z" stroke="#7a6200" stroke-width="2.5" fill="#ffd639" fill-opacity="0.12"/>
-              <line x1="84" y1="50" x2="122" y2="50" stroke="#7a6200" stroke-width="2" opacity="0.7"/>
-              <line x1="84" y1="62" x2="116" y2="62" stroke="#7a6200" stroke-width="2" opacity="0.5"/>
-              <line x1="84" y1="74" x2="108" y2="74" stroke="#7a6200" stroke-width="2" opacity="0.35"/>
-              <rect x="47" y="90" width="16" height="110" rx="4" stroke="#7a6200" stroke-width="2.5" fill="#ffd639" fill-opacity="0.15" transform="rotate(-40 47 90)"/>
-              <path d="M32,176 L40,158 L56,168 Z" stroke="#7a6200" stroke-width="2" fill="#7a6200" fill-opacity="0.35"/>
-              <rect x="103" y="96" width="16" height="12" rx="3" stroke="#7a6200" stroke-width="1.5" fill="#ffd639" fill-opacity="0.4" transform="rotate(-40 103 96)"/>
-              <line x1="96" y1="103" x2="104" y2="91" stroke="#7a6200" stroke-width="1.5"/>
-              <path d="M24,130 Q34,124 44,130 Q54,136 64,128" stroke="#7a6200" stroke-width="2" opacity="0.45"/>
-              <path d="M22,148 Q34,142 44,148 Q54,154 66,146" stroke="#7a6200" stroke-width="2" opacity="0.32"/>
-              <path d="M22,166 Q32,160 42,166 Q52,172 62,164" stroke="#7a6200" stroke-width="2" opacity="0.22"/>
-              <path d="M164,145 L166,152 L173,154 L166,156 L164,163 L162,156 L155,154 L162,152 Z" stroke="#7a6200" stroke-width="1.5" opacity="0.45"/>
+              <path d="M104,28 C84,28 67,41 67,57 C67,73 84,86 104,86 C113,86 121,83 127,78 L140,86 L134,72 C140,67 141,62 141,57 C141,41 124,28 104,28 Z" stroke="#9a4a20" stroke-width="2.5" fill="#f5b89a" fill-opacity="0.12"/>
+              <line x1="84" y1="50" x2="122" y2="50" stroke="#9a4a20" stroke-width="2" opacity="0.7"/>
+              <line x1="84" y1="62" x2="116" y2="62" stroke="#9a4a20" stroke-width="2" opacity="0.5"/>
+              <line x1="84" y1="74" x2="108" y2="74" stroke="#9a4a20" stroke-width="2" opacity="0.35"/>
+              <rect x="47" y="90" width="16" height="110" rx="4" stroke="#9a4a20" stroke-width="2.5" fill="#f5b89a" fill-opacity="0.15" transform="rotate(-40 47 90)"/>
+              <path d="M32,176 L40,158 L56,168 Z" stroke="#9a4a20" stroke-width="2" fill="#9a4a20" fill-opacity="0.35"/>
+              <rect x="103" y="96" width="16" height="12" rx="3" stroke="#9a4a20" stroke-width="1.5" fill="#f5b89a" fill-opacity="0.4" transform="rotate(-40 103 96)"/>
+              <line x1="96" y1="103" x2="104" y2="91" stroke="#9a4a20" stroke-width="1.5"/>
+              <path d="M24,130 Q34,124 44,130 Q54,136 64,128" stroke="#9a4a20" stroke-width="2" opacity="0.45"/>
+              <path d="M22,148 Q34,142 44,148 Q54,154 66,146" stroke="#9a4a20" stroke-width="2" opacity="0.32"/>
+              <path d="M22,166 Q32,160 42,166 Q52,172 62,164" stroke="#9a4a20" stroke-width="2" opacity="0.22"/>
+              <path d="M164,145 L166,152 L173,154 L166,156 L164,163 L162,156 L155,154 L162,152 Z" stroke="#9a4a20" stroke-width="1.5" opacity="0.45"/>
             </svg>
           </div>
         </div>
 
         <div class="cards cards-2">
-          <div class="card" style="border-left-color: #ffd639;">
-            <div class="card-tool" style="color: #7a6200;">
-              <span class="card-tool-dot" style="background: #ffd639;"></span>
+          <div class="card" style="border-left-color: #f5b89a;">
+            <div class="card-tool" style="color: #9a4a20;">
+              <span class="card-tool-dot" style="background: #f5b89a;"></span>
               AI-Assisted Writing
             </div>
             <h3>Drafts, copy, and communication</h3>
@@ -1169,9 +1168,9 @@
               Best results came when we gave it specific context, tone guidelines, and clear constraints.
             </p>
           </div>
-          <div class="card" style="border-left-color: #ffd639;">
-            <div class="card-tool" style="color: #7a6200;">
-              <span class="card-tool-dot" style="background: #ffd639;"></span>
+          <div class="card" style="border-left-color: #f5b89a;">
+            <div class="card-tool" style="color: #9a4a20;">
+              <span class="card-tool-dot" style="background: #f5b89a;"></span>
               Lessons Learned
             </div>
             <h3>Precise naming and shared language matter</h3>
@@ -1189,7 +1188,7 @@
           </div>
         </div>
 
-        <div class="callout" style="background: rgba(255,214,57,0.18); color: #7a6200;">
+        <div class="callout" style="background: rgba(245,184,154,0.18); color: #9a4a20;">
           <span class="callout-icon">🤝</span>
           <span>
             Treat AI like a new collaborator joining your team: it needs context, constraints,
@@ -1208,15 +1207,15 @@
 
 
   <!-- ─── Section 05: Daily Workflow ──────────────────────────── -->
-  <section class="section illus-left" id="s5" data-label="Daily Workflow" data-accent="#00af54" data-index="5">
+  <section class="section illus-left" id="s5" data-label="Daily Workflow" data-accent="#7ecec4" data-index="5">
 
     <div class="section-inner">
       <div class="section-content animate-in">
         <div class="section-intro">
           <div class="section-intro-text">
-            <div class="section-chip" style="background: rgba(0,175,84,0.15);">
-              <span class="chip-number" style="background: #00af54; color: #ffffff;">05</span>
-              <span style="color: #005a2b;">Daily Workflow</span>
+            <div class="section-chip" style="background: rgba(126,206,196,0.2);">
+              <span class="chip-number" style="background: #7ecec4; ">05</span>
+              <span style="color: #2a7a74;">Daily Workflow</span>
             </div>
 
             <span class="section-emoji" role="img" aria-label="Gear">⚙️</span>
@@ -1231,35 +1230,35 @@
           <!-- S5 Illustration: Clipboard checklist -->
           <div class="section-illustration animate-in delay-1">
             <svg viewBox="0 0 200 215" fill="none" xmlns="http://www.w3.org/2000/svg" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <rect x="28" y="38" width="144" height="168" rx="9" stroke="#005a2b" stroke-width="2.5" fill="#00af54" fill-opacity="0.06"/>
-              <rect x="74" y="26" width="52" height="24" rx="7" stroke="#005a2b" stroke-width="2.5" fill="#00af54" fill-opacity="0.12"/>
-              <rect x="88" y="20" width="24" height="14" rx="4" stroke="#005a2b" stroke-width="2" fill="#00af54" fill-opacity="0.2"/>
-              <rect x="46" y="72" width="20" height="20" rx="4" stroke="#005a2b" stroke-width="2" fill="#00af54" fill-opacity="0.12"/>
-              <path d="M50,82 L55,88 L66,75" stroke="#005a2b" stroke-width="2.5"/>
-              <line x1="76" y1="82" x2="156" y2="82" stroke="#005a2b" stroke-width="2"/>
-              <rect x="46" y="108" width="20" height="20" rx="4" stroke="#005a2b" stroke-width="2" fill="#00af54" fill-opacity="0.12"/>
-              <path d="M50,118 L55,124 L66,111" stroke="#005a2b" stroke-width="2.5"/>
-              <line x1="76" y1="118" x2="148" y2="118" stroke="#005a2b" stroke-width="2"/>
-              <rect x="46" y="144" width="20" height="20" rx="4" stroke="#005a2b" stroke-width="2"/>
-              <line x1="76" y1="154" x2="152" y2="154" stroke="#005a2b" stroke-width="2" opacity="0.45"/>
-              <circle cx="152" cy="184" r="13" stroke="#005a2b" stroke-width="2"/>
-              <circle cx="152" cy="184" r="5.5" stroke="#005a2b" stroke-width="1.5"/>
-              <line x1="152" y1="168" x2="152" y2="165" stroke="#005a2b" stroke-width="2.5"/>
-              <line x1="152" y1="200" x2="152" y2="203" stroke="#005a2b" stroke-width="2.5"/>
-              <line x1="136" y1="184" x2="133" y2="184" stroke="#005a2b" stroke-width="2.5"/>
-              <line x1="168" y1="184" x2="171" y2="184" stroke="#005a2b" stroke-width="2.5"/>
-              <line x1="140.7" y1="173.7" x2="138.6" y2="171.6" stroke="#005a2b" stroke-width="2.5"/>
-              <line x1="163.3" y1="194.3" x2="165.4" y2="196.4" stroke="#005a2b" stroke-width="2.5"/>
-              <line x1="163.3" y1="173.7" x2="165.4" y2="171.6" stroke="#005a2b" stroke-width="2.5"/>
-              <line x1="140.7" y1="194.3" x2="138.6" y2="196.4" stroke="#005a2b" stroke-width="2.5"/>
+              <rect x="28" y="38" width="144" height="168" rx="9" stroke="#2a7a74" stroke-width="2.5" fill="#7ecec4" fill-opacity="0.06"/>
+              <rect x="74" y="26" width="52" height="24" rx="7" stroke="#2a7a74" stroke-width="2.5" fill="#7ecec4" fill-opacity="0.12"/>
+              <rect x="88" y="20" width="24" height="14" rx="4" stroke="#2a7a74" stroke-width="2" fill="#7ecec4" fill-opacity="0.2"/>
+              <rect x="46" y="72" width="20" height="20" rx="4" stroke="#2a7a74" stroke-width="2" fill="#7ecec4" fill-opacity="0.12"/>
+              <path d="M50,82 L55,88 L66,75" stroke="#2a7a74" stroke-width="2.5"/>
+              <line x1="76" y1="82" x2="156" y2="82" stroke="#2a7a74" stroke-width="2"/>
+              <rect x="46" y="108" width="20" height="20" rx="4" stroke="#2a7a74" stroke-width="2" fill="#7ecec4" fill-opacity="0.12"/>
+              <path d="M50,118 L55,124 L66,111" stroke="#2a7a74" stroke-width="2.5"/>
+              <line x1="76" y1="118" x2="148" y2="118" stroke="#2a7a74" stroke-width="2"/>
+              <rect x="46" y="144" width="20" height="20" rx="4" stroke="#2a7a74" stroke-width="2"/>
+              <line x1="76" y1="154" x2="152" y2="154" stroke="#2a7a74" stroke-width="2" opacity="0.45"/>
+              <circle cx="152" cy="184" r="13" stroke="#2a7a74" stroke-width="2"/>
+              <circle cx="152" cy="184" r="5.5" stroke="#2a7a74" stroke-width="1.5"/>
+              <line x1="152" y1="168" x2="152" y2="165" stroke="#2a7a74" stroke-width="2.5"/>
+              <line x1="152" y1="200" x2="152" y2="203" stroke="#2a7a74" stroke-width="2.5"/>
+              <line x1="136" y1="184" x2="133" y2="184" stroke="#2a7a74" stroke-width="2.5"/>
+              <line x1="168" y1="184" x2="171" y2="184" stroke="#2a7a74" stroke-width="2.5"/>
+              <line x1="140.7" y1="173.7" x2="138.6" y2="171.6" stroke="#2a7a74" stroke-width="2.5"/>
+              <line x1="163.3" y1="194.3" x2="165.4" y2="196.4" stroke="#2a7a74" stroke-width="2.5"/>
+              <line x1="163.3" y1="173.7" x2="165.4" y2="171.6" stroke="#2a7a74" stroke-width="2.5"/>
+              <line x1="140.7" y1="194.3" x2="138.6" y2="196.4" stroke="#2a7a74" stroke-width="2.5"/>
             </svg>
           </div>
         </div>
 
         <div class="cards cards-1">
-          <div class="card" style="border-left-color: #00af54;">
-            <div class="card-tool" style="color: #005a2b;">
-              <span class="card-tool-dot" style="background: #00af54;"></span>
+          <div class="card" style="border-left-color: #7ecec4;">
+            <div class="card-tool" style="color: #2a7a74;">
+              <span class="card-tool-dot" style="background: #7ecec4;"></span>
               Cowork
             </div>
             <h3>Turning plans into visual outlines</h3>
@@ -1338,12 +1337,12 @@
       return el.dataset.accent || '#fbaf00';
     }
 
-    // Returns '#111111' or '#ffffff' — whichever passes contrast on the given hex bg
+    // Returns '#282828' or '#ffffff' — whichever passes contrast on the given hex bg
     function getContrastColor(hex) {
       const r = parseInt(hex.slice(1,3), 16);
       const g = parseInt(hex.slice(3,5), 16);
       const b = parseInt(hex.slice(5,7), 16);
-      return (0.299*r + 0.587*g + 0.114*b) / 255 > 0.55 ? '#111111' : '#ffffff';
+      return (0.299*r + 0.587*g + 0.114*b) / 255 > 0.55 ? '#282828' : '#ffffff';
     }
 
     // ── Nav pills setup ──────────────────────────────────────────
@@ -1450,7 +1449,7 @@
       text: 'https://https://lilyatwork.github.io/proj-townhall//',
       width: 140,
       height: 140,
-      colorDark: '#111111',
+      colorDark: '#282828',
       colorLight: '#ffffff',
       correctLevel: QRCode.CorrectLevel.M
     });
@@ -1483,7 +1482,7 @@
     const sparkleCanvas = document.getElementById('sparkle-canvas');
     const ctx = sparkleCanvas.getContext('2d');
     let sparkles = [];
-    const SPARKLE_COLORS = ['#fbaf00', '#ffa3af', '#ffd639', '#00af54', '#007cbe'];
+    const SPARKLE_COLORS = ['#fbaf00', '#ffa3af', '#f5b89a', '#7ecec4', '#007cbe'];
 
     function resizeSparkle() {
       sparkleCanvas.width  = window.innerWidth;
