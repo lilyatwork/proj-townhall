@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "townhall",
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["/Users/litingkway/Downloads/proj_townhall/.claude/serve.js"],
+      "port": 4321
+    }
+  ]
+}
