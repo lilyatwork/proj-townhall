@@ -578,6 +578,10 @@
     /* ─── Mobile ───────────────────────────────────────────────── */
     @media (max-width: 720px) {
       .cards-2 { grid-template-columns: 1fr; }
+
+      /* Speed spectrum: allow labels to wrap, grow track height */
+      .speed-track { height: auto; min-height: 160px; padding: 60px 0; }
+      .speed-label { white-space: normal; text-align: center; max-width: 90px; font-size: 0.78rem; }
       .start-here-grid { grid-template-columns: 1fr; }
       /* Column layout so illustration can appear above content */
       .section { padding: 100px 20px 64px; flex-direction: column; }
@@ -721,9 +725,11 @@
     }
     .speed-arrow {
       display: flex;
+      flex-direction: column;
       align-items: center;
-      gap: 6px;
-      margin-left: 8px;
+      gap: 4px;
+      margin-left: -1px;
+      flex-shrink: 0;
     }
     .speed-axis-label {
       font-size: 0.72rem;
@@ -1038,7 +1044,7 @@
       <nav id="nav-pills" aria-label="Chapter navigation">
         <a class="nav-pill" href="#s2" data-section="2" data-color="#007cbe">⚡ Building</a>
         <a class="nav-pill" href="#s3" data-section="3" data-color="#ffa3af">🔬 Research</a>
-        <a class="nav-pill" href="#s4" data-section="4" data-color="#f5b89a">✍️ Working with AI</a>
+        <a class="nav-pill" href="#s4" data-section="4" data-color="#f5b89a">✍️ Writing with AI</a>
         <a class="nav-pill" href="#s5" data-section="5" data-color="#7ecec4">⚙️ Daily Workflow</a>
       </nav>
       <div id="nav-dropdown" aria-label="Chapter navigation">
@@ -1049,7 +1055,7 @@
         <div id="nav-dropdown-menu" role="menu">
           <a class="nav-dropdown-item" href="#s2" data-section="2" data-color="#007cbe">⚡ Building</a>
           <a class="nav-dropdown-item" href="#s3" data-section="3" data-color="#ffa3af">🔬 Research</a>
-          <a class="nav-dropdown-item" href="#s4" data-section="4" data-color="#f5b89a">✍️ Working with AI</a>
+          <a class="nav-dropdown-item" href="#s4" data-section="4" data-color="#f5b89a">✍️ Writing with AI</a>
           <a class="nav-dropdown-item" href="#s5" data-section="5" data-color="#7ecec4">⚙️ Daily Workflow</a>
         </div>
       </div>
@@ -1084,7 +1090,7 @@
         <div class="chapter-pills">
           <a class="pill" href="#s2" style="background:#6baed6; color:#282828; --pill-hover-border:#2271a3;">⚡ Building</a>
           <a class="pill" href="#s3" style="background:#f4b8c0; color:#282828; --pill-hover-border:#b85560;">🔬 Research</a>
-          <a class="pill" href="#s4" style="background:#f5b89a; color:#282828; --pill-hover-border:#c4603a;">✍️ Working with AI</a>
+          <a class="pill" href="#s4" style="background:#f5b89a; color:#282828; --pill-hover-border:#c4603a;">✍️ Writing with AI</a>
           <a class="pill" href="#s5" style="background:#7ecec4; color:#282828; --pill-hover-border:#2a8a82;">⚙️ Daily Workflow</a>
         </div>
 
@@ -1226,8 +1232,8 @@
           <div class="speed-axis">
             <div class="speed-line"></div>
             <div class="speed-arrow">
+              <svg width="12" height="14" viewBox="0 0 12 14" fill="none"><polyline points="1,1 11,7 1,13" stroke="#007cbe" stroke-width="2.5" fill="none" stroke-linejoin="round" stroke-linecap="round"/></svg>
               <span class="speed-axis-label">Time needed</span>
-              <svg width="18" height="14" viewBox="0 0 18 14" fill="none"><polyline points="10,1 17,7 10,13" stroke="#007cbe" stroke-width="2" fill="none" stroke-linejoin="round" stroke-linecap="round"/></svg>
             </div>
           </div>
           <!-- Point 1: The hybrid -->
@@ -1243,7 +1249,7 @@
             <div class="speed-tooltip">It's functionally robust. You can input text, toggle states and perform advanced actions. But it looks a bit off 😕</div>
           </div>
           <!-- Point 3: Almost like the real thing -->
-          <div class="speed-point" style="left: 86%;" data-pos="below">
+          <div class="speed-point" style="left: 78%;" data-pos="below">
             <div class="speed-label below">Almost like the real thing</div>
             <button class="speed-dot" aria-label="Almost like the real thing" aria-expanded="false"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 1L11.8 8.2L19 10L11.8 11.8L10 19L8.2 11.8L1 10L8.2 8.2Z" fill="#007cbe"/></svg></button>
             <div class="speed-tooltip">You can't really tell the difference from the production app.</div>
@@ -1397,7 +1403,7 @@
 
 
   <!-- ─── Section 04: Writing & Working with AI ───────────────── -->
-  <section class="section illus-left" id="s4" data-label="Working with AI" data-accent="#f5b89a" data-index="4">
+  <section class="section illus-left" id="s4" data-label="Writing with AI" data-accent="#f5b89a" data-index="4">
 
     <div class="section-inner">
       <div class="section-content animate-in">
@@ -1405,12 +1411,12 @@
           <div class="section-intro-text">
             <div class="section-chip" style="background: rgba(245,184,154,0.2);">
               <span class="chip-number" style="background: #f5b89a;">04</span>
-              <span style="color: #9a4a20;">Writing &amp; Working with AI</span>
+              <span style="color: #9a4a20;">Writing with AI</span>
             </div>
 
             <span class="section-emoji" role="img" aria-label="Writing hand">✍️</span>
 
-            <h2 class="section-title">Writing &amp;<br />Working with AI</h2>
+            <h2 class="section-title">Writing with AI</h2>
             <p class="section-subtitle">
               From first-draft collaborator to shared vocabulary —
               here's what we learned about getting useful output, consistently.
@@ -1444,13 +1450,10 @@
             </div>
             <h3>AI UX writer agent</h3>
             <p>
-              Here are some of the things our UX writer is currently building and exploring:
+              building an AI UX writer agent that retrieves pre-approved copy from a library to maintain consistency, 
+              and validates copy against approved scheme names and style guidelines. 
+              It also handles writing new copy from scratch when needed.
             </p>
-            <ul style="margin: 12px 0 0 0; padding-left: 18px; font-size: 0.95rem; line-height: 1.7; color: inherit;">
-              <li>An AI UX writer agent that retrieves copy already in our pre-approved copy library — helping with consistency so we don't end up with many versions of the same thing</li>
-              <li>Checking copy against approved scheme names and the style guide</li>
-              <li>Writing general new copy</li>
-            </ul>
             <video
               src="ux-writing-agent.mp4"
               controls
@@ -1467,9 +1470,6 @@
           </span>
         </div>
 
-        <div class="pull-quote">
-          <span>AI writes fast. Good writing still takes time — and garbage in, garbage out.</span>
-        </div>
       </div>
     </div>
 
