@@ -696,6 +696,138 @@
       .pill { font-size: 0.75rem; padding: 6px 14px; }
     }
 
+    /* ─── Choose Your Speed Spectrum ───────────────────────────── */
+    .speed-spectrum { width: 100%; }
+
+    .speed-track {
+      position: relative;
+      height: 140px;
+      margin: 32px 0 48px;
+    }
+
+    /* Axis line + arrow */
+    .speed-axis {
+      position: absolute;
+      top: 50%; left: 0; right: 0;
+      transform: translateY(-50%);
+      display: flex;
+      align-items: center;
+    }
+    .speed-line {
+      flex: 1;
+      height: 1.5px;
+      background: #282828;
+    }
+    .speed-arrow {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-left: 8px;
+    }
+    .speed-axis-label {
+      font-size: 0.72rem;
+      color: #282828;
+      opacity: 0.55;
+      white-space: nowrap;
+    }
+
+    /* Points */
+    .speed-point {
+      position: absolute;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* Dashed connector */
+    .speed-point[data-pos="above"] { flex-direction: column-reverse; }
+    .speed-point::before {
+      content: '';
+      display: block;
+      width: 1.5px;
+      height: 28px;
+      background: repeating-linear-gradient(to bottom, #e05db0 0px, #e05db0 4px, transparent 4px, transparent 8px);
+    }
+
+    /* Label */
+    .speed-label {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #282828;
+      white-space: nowrap;
+      padding: 4px 0;
+    }
+    .speed-label.above { margin-bottom: 2px; }
+    .speed-label.below { margin-top: 2px; }
+
+    /* Dot button */
+    .speed-dot {
+      width: 14px; height: 14px;
+      border-radius: 50%;
+      background: #e05db0;
+      border: 2.5px solid #fff;
+      box-shadow: 0 0 0 2px #e05db0;
+      cursor: pointer;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+      flex-shrink: 0;
+      position: relative;
+      z-index: 2;
+    }
+    .speed-dot:hover,
+    .speed-dot:focus,
+    .speed-dot.active {
+      transform: scale(1.35);
+      box-shadow: 0 0 0 3px #e05db0, 0 0 12px rgba(224,93,176,0.35);
+      outline: none;
+    }
+
+    /* Tooltip */
+    .speed-tooltip {
+      position: absolute;
+      top: calc(100% + 12px);
+      left: 50%;
+      transform: translateX(-50%) translateY(4px);
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(16px);
+      border: 1.5px solid rgba(224,93,176,0.25);
+      border-radius: 12px;
+      padding: 10px 14px;
+      font-size: 0.8rem;
+      line-height: 1.5;
+      color: #282828;
+      width: 220px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.18s ease, transform 0.18s ease;
+      z-index: 10;
+    }
+    /* flip tooltip upward for "above" points */
+    .speed-point[data-pos="above"] .speed-tooltip {
+      top: auto;
+      bottom: calc(100% + 12px);
+      transform: translateX(-50%) translateY(-4px);
+    }
+    .speed-point[data-pos="above"] .speed-dot.active ~ .speed-tooltip,
+    .speed-point[data-pos="above"] .speed-dot:hover ~ .speed-tooltip,
+    .speed-dot:hover ~ .speed-tooltip,
+    .speed-dot.active ~ .speed-tooltip {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+      pointer-events: auto;
+    }
+    /* keep tooltip in viewport for rightmost point */
+    .speed-point:last-child .speed-tooltip {
+      left: auto; right: 0;
+      transform: translateY(4px);
+    }
+    .speed-point:last-child .speed-dot.active ~ .speed-tooltip,
+    .speed-point:last-child .speed-dot:hover ~ .speed-tooltip {
+      transform: translateY(0);
+    }
+
     /* ─── Prototype Embed ──────────────────────────────────────── */
     .proto-embed { margin-top: 40px; }
 
@@ -1094,8 +1226,40 @@
           </div>
         </div>
 
+      <!-- Choose Your Speed spectrum -->
+      <div class="speed-spectrum animate-in delay-4" style="margin-top: 40px;">
+        <p class="proto-label">Choose your speed</p>
+        <div class="speed-track">
+          <div class="speed-axis">
+            <div class="speed-line"></div>
+            <div class="speed-arrow">
+              <span class="speed-axis-label">Time needed</span>
+              <svg width="18" height="14" viewBox="0 0 18 14" fill="none"><line x1="0" y1="7" x2="16" y2="7" stroke="#282828" stroke-width="1.5"/><polyline points="10,1 17,7 10,13" stroke="#282828" stroke-width="1.5" fill="none" stroke-linejoin="round" stroke-linecap="round"/></svg>
+            </div>
+          </div>
+          <!-- Point 1: The hybrid -->
+          <div class="speed-point" style="left: 14%;" data-pos="above">
+            <div class="speed-label above">The hybrid</div>
+            <button class="speed-dot" aria-label="The hybrid" aria-expanded="false"></button>
+            <div class="speed-tooltip">Only build the pages with complex interactions and combine those with the traditional Figma spaghetti prototype.</div>
+          </div>
+          <!-- Point 2: The functional skeleton -->
+          <div class="speed-point" style="left: 36%;" data-pos="below">
+            <div class="speed-label below">The functional skeleton</div>
+            <button class="speed-dot" aria-label="The functional skeleton" aria-expanded="false"></button>
+            <div class="speed-tooltip">It's functionally robust. You can input text, toggle states and perform advanced actions. But it looks a bit off 😕</div>
+          </div>
+          <!-- Point 3: Almost like the real thing -->
+          <div class="speed-point" style="left: 86%;" data-pos="below">
+            <div class="speed-label below">Almost like the real thing</div>
+            <button class="speed-dot" aria-label="Almost like the real thing" aria-expanded="false"></button>
+            <div class="speed-tooltip">You can't really tell the difference from the production app.</div>
+          </div>
+        </div>
+      </div>
+
       <!-- Prototype embed spans full column width, below content -->
-      <div class="proto-embed animate-in delay-4">
+      <div class="proto-embed animate-in delay-5">
         <p class="proto-label">Interactive prototype — try it</p>
         <div class="proto-frame">
           <iframe
@@ -1608,6 +1772,29 @@
     }
     window.addEventListener('resize', scaleProto, { passive: true });
     requestAnimationFrame(() => { requestAnimationFrame(scaleProto); });
+
+    // ── Choose Your Speed — tap to toggle on mobile ──────────────
+    document.querySelectorAll('.speed-dot').forEach(dot => {
+      dot.addEventListener('click', e => {
+        const isActive = dot.classList.contains('active');
+        // close all others
+        document.querySelectorAll('.speed-dot').forEach(d => {
+          d.classList.remove('active');
+          d.setAttribute('aria-expanded', 'false');
+        });
+        if (!isActive) {
+          dot.classList.add('active');
+          dot.setAttribute('aria-expanded', 'true');
+        }
+        e.stopPropagation();
+      });
+    });
+    document.addEventListener('click', () => {
+      document.querySelectorAll('.speed-dot').forEach(d => {
+        d.classList.remove('active');
+        d.setAttribute('aria-expanded', 'false');
+      });
+    });
 
     // ── Scroll-to-top button ─────────────────────────────────────
     const scrollTopBtn = document.getElementById('scroll-top-btn');
