@@ -611,9 +611,40 @@
       .speed-track { height: 200px; }
       .speed-label { white-space: normal; max-width: 130px; font-size: 0.78rem; }
       .speed-axis-label { display: none; }
-      /* Hide tooltips on mobile — labels already carry the info,
-         and touch-triggered tooltips conflict with label layout */
-      .speed-tooltip { display: none !important; }
+      /* Narrow all tooltips on mobile */
+      .speed-tooltip { width: 140px !important; font-size: 0.75rem; }
+
+      /* "above" dot has its label above the axis → flip tooltip BELOW
+         so it never covers the label or the heading above */
+      .speed-point[data-pos="above"] .speed-tooltip {
+        top: calc(100% + 12px) !important;
+        bottom: auto !important;
+        left: 0 !important;           /* left-anchor: dot is near left edge */
+        right: auto !important;
+        transform: translateY(4px) !important;
+      }
+      .speed-point[data-pos="above"] .speed-dot.active ~ .speed-tooltip,
+      .speed-point[data-pos="above"] .speed-dot:hover ~ .speed-tooltip {
+        opacity: 1 !important;
+        transform: translateY(0) !important;
+        pointer-events: auto;
+      }
+
+      /* "below" dots have labels below the axis → flip tooltip ABOVE.
+         Also override the last-child right:0 so centering works correctly */
+      .speed-point[data-pos="below"] .speed-tooltip {
+        top: auto !important;
+        bottom: calc(100% + 12px) !important;
+        left: 50% !important;
+        right: auto !important;
+        transform: translateX(-50%) translateY(-4px) !important;
+      }
+      .speed-point[data-pos="below"] .speed-dot.active ~ .speed-tooltip,
+      .speed-point[data-pos="below"] .speed-dot:hover ~ .speed-tooltip {
+        opacity: 1 !important;
+        transform: translateX(-50%) translateY(0) !important;
+        pointer-events: auto;
+      }
       .start-here-grid { grid-template-columns: 1fr; }
       /* Column layout so illustration can appear above content */
       .section { padding: 100px 20px 64px; flex-direction: column; }
