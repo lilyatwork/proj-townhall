@@ -614,14 +614,15 @@
       /* Narrow all tooltips on mobile */
       .speed-tooltip { width: 140px !important; font-size: 0.75rem; }
 
-      /* "above" dot has its label above the axis → flip tooltip BELOW
-         so it never covers the label or the heading above */
+      /* "above" dot: label sits ~14px above the dot and is ~40px tall.
+         Push tooltip above the label by using a larger bottom offset (~62px).
+         Left-anchor at 0 so it doesn't overflow off the left edge. */
       .speed-point[data-pos="above"] .speed-tooltip {
-        top: calc(100% + 12px) !important;
-        bottom: auto !important;
-        left: 0 !important;           /* left-anchor: dot is near left edge */
+        top: auto !important;
+        bottom: calc(100% + 62px) !important;
+        left: 0 !important;
         right: auto !important;
-        transform: translateY(4px) !important;
+        transform: translateY(-4px) !important;
       }
       .speed-point[data-pos="above"] .speed-dot.active ~ .speed-tooltip,
       .speed-point[data-pos="above"] .speed-dot:hover ~ .speed-tooltip {
