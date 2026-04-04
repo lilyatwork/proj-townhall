@@ -607,8 +607,11 @@
       .card-img-grid { grid-template-columns: 1fr !important; }
 
       /* Speed spectrum: allow labels to wrap, grow track height */
-      .speed-track { height: auto; min-height: 160px; padding: 60px 0; }
-      .speed-label { white-space: normal; text-align: center; max-width: 90px; font-size: 0.78rem; }
+      .speed-track { height: auto; min-height: 220px; padding: 90px 0; }
+      .speed-label { white-space: normal !important; text-align: center; max-width: 90px; font-size: 0.78rem; }
+      .speed-axis-label { display: none; }
+      /* Narrow tooltips on mobile to avoid overflow on left and right */
+      .speed-tooltip { width: 160px !important; font-size: 0.75rem; }
       .start-here-grid { grid-template-columns: 1fr; }
       /* Column layout so illustration can appear above content */
       .section { padding: 100px 20px 64px; flex-direction: column; }
@@ -1728,27 +1731,32 @@
       });
     }
 
-    // ── IntersectionObserver – section tracking ──────────────────
+    // ── Section tracking – scroll-based (works for tall sections) ──
     let activeSection = sections[0];
 
-    const sectionObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting && entry.intersectionRatio >= 0.25) {
-          activeSection = entry.target;
-          const accent = getAccent(activeSection);
-          const idx    = activeSection.dataset.index;
-          const label  = activeSection.dataset.label;
+    function updateActiveSection() {
+      // Pick the section whose top edge is closest to (but at or above)
+      // 40% down the viewport — robust for sections taller than the viewport.
+      const trigger = window.scrollY + window.innerHeight * 0.4;
+      let best = sections[0];
+      for (const s of sections) {
+        if (s.offsetTop <= trigger) best = s;
+      }
+      if (best !== activeSection) {
+        activeSection = best;
+        const accent = getAccent(activeSection);
+        const idx    = activeSection.dataset.index;
+        const label  = activeSection.dataset.label;
+        sectionLabel.textContent = label;
+        sectionLabel.style.color = accent;
+        sectionCounter.textContent = `${String(idx).padStart(2,'0')} / 05`;
+        progressFill.style.background = accent;
+        updateNavPills(idx);
+      }
+    }
 
-          sectionLabel.textContent = label;
-          sectionLabel.style.color = accent;
-          sectionCounter.textContent = `${String(idx).padStart(2,'0')} / 05`;
-          progressFill.style.background = accent;
-          updateNavPills(idx);
-        }
-      });
-    }, { threshold: 0.25 });
-
-    sections.forEach(s => sectionObserver.observe(s));
+    window.addEventListener('scroll', updateActiveSection, { passive: true });
+    updateActiveSection();
 
     // ── IntersectionObserver – entrance animations ───────────────
     // Define observer first so stagger code can use it
@@ -1810,7 +1818,7 @@
 
     // ── QR Code ──────────────────────────────────────────────────
     new QRCode(document.getElementById('qrcode-canvas'), {
-      text: 'https://lilyatwork.github.io/proj-townhall//',
+      text: 'https://lilyatwork.github.io/proj-townhall/',
       width: 140,
       height: 140,
       colorDark: '#282828',
