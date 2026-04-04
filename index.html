@@ -576,30 +576,31 @@
     }
 
     /* ─── Mobile ───────────────────────────────────────────────── */
-    /* Tool logo row */
-    .tool-logo-row {
+    /* Tool logo strip */
+    .tool-logo-strip {
       display: flex;
       flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 24px;
+      gap: 28px;
+      align-items: flex-end;
+      margin-top: 28px;
     }
-    .tool-logo-pill {
+    .tool-logo-item {
       display: flex;
+      flex-direction: column;
       align-items: center;
-      gap: 7px;
-      background: rgba(0,124,190,0.08);
-      border-radius: 20px;
-      padding: 6px 14px 6px 10px;
-      font-size: 0.78rem;
-      font-weight: 600;
-      color: #282828;
-      letter-spacing: 0.01em;
+      gap: 8px;
     }
-    .tool-logo-pill-dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      flex-shrink: 0;
+    .tool-logo-item svg {
+      height: 36px;
+      width: auto;
+      display: block;
+    }
+    .tool-logo-item-name {
+      font-size: 0.7rem;
+      color: #282828;
+      opacity: 0.55;
+      font-weight: 600;
+      letter-spacing: 0.02em;
     }
 
     @media (max-width: 720px) {
@@ -1193,26 +1194,34 @@
               each taught us something different about where AI fits in the build process.
             </p>
 
-            <div class="tool-logo-row">
-              <div class="tool-logo-pill">
-                <span class="tool-logo-pill-dot" style="background: #F24E1E;"></span>
-                Figma Make
+            <div class="tool-logo-strip">
+              <!-- Figma Make -->
+              <div class="tool-logo-item">
+                <svg viewBox="0 0 24 24" fill="#F24E1E" xmlns="http://www.w3.org/2000/svg"><path d="M15.852 8.981h-4.588V0h4.588c2.476 0 4.49 2.014 4.49 4.49s-2.014 4.491-4.49 4.491zM12.735 7.51h3.117c1.665 0 3.019-1.355 3.019-3.019s-1.355-3.019-3.019-3.019h-3.117V7.51zm0 1.471H8.148c-2.476 0-4.49-2.014-4.49-4.49S5.672 0 8.148 0h4.588v8.981zm-4.587-7.51c-1.665 0-3.019 1.355-3.019 3.019s1.354 3.02 3.019 3.02h3.117V1.471H8.148zm4.587 15.019H8.148c-2.476 0-4.49-2.014-4.49-4.49s2.014-4.49 4.49-4.49h4.588v8.98zM8.148 8.981c-1.665 0-3.019 1.355-3.019 3.019s1.355 3.019 3.019 3.019h3.117V8.981H8.148zM8.172 24c-2.489 0-4.515-2.014-4.515-4.49s2.014-4.49 4.49-4.49h4.588v4.441c0 2.503-2.047 4.539-4.563 4.539zm-.024-7.51a3.023 3.023 0 0 0-3.019 3.019c0 1.665 1.365 3.019 3.044 3.019 1.705 0 3.093-1.376 3.093-3.068v-2.97H8.148zm7.704 0h-.098c-2.476 0-4.49-2.014-4.49-4.49s2.014-4.49 4.49-4.49h.098c2.476 0 4.49 2.014 4.49 4.49s-2.014 4.49-4.49 4.49zm-.097-7.509c-1.665 0-3.019 1.355-3.019 3.019s1.355 3.019 3.019 3.019h.098c1.665 0 3.019-1.355 3.019-3.019s-1.355-3.019-3.019-3.019h-.098z"/></svg>
+                <span class="tool-logo-item-name">Figma Make</span>
               </div>
-              <div class="tool-logo-pill">
-                <span class="tool-logo-pill-dot" style="background: #E966A0;"></span>
-                Lovable
+              <!-- Lovable -->
+              <div class="tool-logo-item">
+                <svg viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <defs><linearGradient id="lv-g" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#FF8E63"/><stop offset="50%" stop-color="#FF7EB0"/><stop offset="100%" stop-color="#4B73FF"/></linearGradient></defs>
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M54.6052 0C83.9389 0 107.719 23.8424 107.719 53.2535V73.4931H125.395C154.729 73.4931 178.508 97.3355 178.508 126.747C178.508 156.158 154.729 180 125.395 180H1.4917V53.2535C1.4917 23.8424 25.2714 0 54.6052 0Z" fill="url(#lv-g)"/>
+                </svg>
+                <span class="tool-logo-item-name">Lovable</span>
               </div>
-              <div class="tool-logo-pill">
-                <span class="tool-logo-pill-dot" style="background: #4285F4;"></span>
-                Google Stitch
+              <!-- Google Stitch -->
+              <div class="tool-logo-item">
+                <svg viewBox="0 0 24 24" fill="#4285F4" xmlns="http://www.w3.org/2000/svg"><path d="M12.48 10.92v3.28h7.84c-.24 1.84-.853 3.187-1.787 4.133-1.147 1.147-2.933 2.4-6.053 2.4-4.827 0-8.6-3.893-8.6-8.72s3.773-8.72 8.6-8.72c2.6 0 4.507 1.027 5.907 2.347l2.307-2.307C18.747 1.44 16.133 0 12.48 0 5.867 0 .307 5.387.307 12s5.56 12 12.173 12c3.573 0 6.267-1.173 8.373-3.36 2.16-2.16 2.84-5.213 2.84-7.667 0-.76-.053-1.467-.173-2.053H12.48z"/></svg>
+                <span class="tool-logo-item-name">Google Stitch</span>
               </div>
-              <div class="tool-logo-pill">
-                <span class="tool-logo-pill-dot" style="background: #171717;"></span>
-                V0
+              <!-- V0 -->
+              <div class="tool-logo-item">
+                <svg viewBox="0 0 24 24" fill="#171717" xmlns="http://www.w3.org/2000/svg"><path d="M24 22.525H0l12-21.05 12 21.05z"/></svg>
+                <span class="tool-logo-item-name">V0</span>
               </div>
-              <div class="tool-logo-pill">
-                <span class="tool-logo-pill-dot" style="background: #D97757;"></span>
-                Claude
+              <!-- Claude -->
+              <div class="tool-logo-item">
+                <svg viewBox="0 0 24 24" fill="#D97757" xmlns="http://www.w3.org/2000/svg"><path d="M17.3041 3.541h-3.6718l6.696 16.918H24Zm-10.6082 0L0 20.459h3.7442l1.3693-3.5527h7.0052l1.3693 3.5528h3.7442L10.5363 3.5409Zm-.3712 10.2232 2.2914-5.9456 2.2914 5.9456Z"/></svg>
+                <span class="tool-logo-item-name">Claude</span>
               </div>
             </div>
           </div>
@@ -1262,7 +1271,7 @@
             </div>
             <h3>Generating more ideas quickly</h3>
             <p>
-              AI tools have made it easier to explore a wide range of visual directions in a fraction of the time. Instead of starting from a blank canvas, designers can generate functional UI screens from prompts and rough sketches — getting to something tangible in minutes. The value isn't in the output itself, but in the speed of exploration: more directions tried, more options compared, faster alignment with stakeholders.
+              AI tools have made it easier to explore a wide range of visual directions in a fraction of the time. Instead of starting from a blank canvas, designers can generate functional UI screens from prompts and rough sketches — getting to something tangible in minutes.
             </p>
           </div>
           <div class="card" style="border-left-color: #007cbe;">
@@ -1316,16 +1325,22 @@
         </div>
       </div>
 
-      <div class="proto-embed animate-in delay-5" style="margin-top: 32px;">
-        <p class="proto-label">Generating UI screens with Google Stitch</p>
-        <img src="google-stitch.jpeg" alt="Google Stitch generating UI screens from a prompt"
-          style="width:100%; border-radius:16px; box-shadow: 0 8px 32px rgba(0,0,0,0.1); display:block;" />
-        <p style="margin-top: 16px; font-size: 0.95rem; color: #282828; opacity: 0.75; line-height: 1.65;">
-          Google Stitch lets you generate functional UI screens from text prompts and sketches.
-          Useful for rapidly exploring visual directions and getting to a tangible design artefact
-          without starting from scratch. Still being explored — early results suggest strong potential
-          for early-stage ideation and stakeholder alignment.
-        </p>
+      <div class="cards animate-in delay-5" style="margin-top: 32px;">
+        <div class="card" style="border-left-color: #007cbe;">
+          <div class="card-tool" style="color: #004d7a;">
+            <span class="card-tool-dot" style="background: #007cbe;"></span>
+            Google Stitch
+          </div>
+          <h3>Generating UI screens with Google Stitch</h3>
+          <img src="google-stitch.jpeg" alt="Google Stitch generating UI screens from a prompt"
+            style="width:100%; border-radius:10px; margin-top:16px; box-shadow: 0 4px 16px rgba(0,0,0,0.1); display:block;" />
+          <p style="margin-top: 16px; font-size: 0.95rem; line-height: 1.65;">
+            Google Stitch lets you generate functional UI screens from text prompts and sketches.
+            Useful for rapidly exploring visual directions and getting to a tangible design artefact
+            without starting from scratch. Still being explored — early results suggest strong potential
+            for early-stage ideation and stakeholder alignment.
+          </p>
+        </div>
       </div>
 
       <!-- Prototype embed spans full column width, below content -->
