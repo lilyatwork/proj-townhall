@@ -607,9 +607,9 @@
       .cards-2 { grid-template-columns: 1fr; }
       .card-img-grid { grid-template-columns: 1fr !important; }
 
-      /* Speed spectrum: allow labels to wrap, grow track height */
-      .speed-track { height: auto; min-height: 220px; padding: 90px 0; }
-      .speed-label { white-space: normal !important; text-align: center; max-width: 90px; font-size: 0.78rem; }
+      /* Speed spectrum: allow labels to wrap on narrow viewports */
+      .speed-track { height: 180px; }
+      .speed-label { white-space: normal; max-width: 80px; font-size: 0.78rem; }
       .speed-axis-label { display: none; }
       /* Narrow tooltips on mobile to avoid overflow on left and right */
       .speed-tooltip { width: 160px !important; font-size: 0.75rem; }
@@ -772,25 +772,29 @@
       white-space: nowrap;
     }
 
-    /* Points */
+    /* Points — sized to just the dot; labels float via absolute positioning */
     .speed-point {
       position: absolute;
       top: 50%;
       transform: translate(-50%, -50%);
       display: flex;
-      flex-direction: column;
       align-items: center;
-      gap: 18px;
+      justify-content: center;
     }
-    .speed-point[data-pos="above"] { flex-direction: column-reverse; }
 
-    /* Label */
+    /* Label — absolutely positioned so it never crosses the axis line */
     .speed-label {
+      position: absolute;
       font-size: 0.85rem;
       font-weight: 700;
       color: #282828;
-      white-space: nowrap;
+      text-align: center;
+      left: 50%;
+      transform: translateX(-50%);
+      white-space: normal;
     }
+    .speed-point[data-pos="below"] .speed-label { top: calc(100% + 14px); }
+    .speed-point[data-pos="above"] .speed-label { bottom: calc(100% + 14px); }
 
     /* Sparkle button */
     .speed-dot {
