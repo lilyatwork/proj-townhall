@@ -751,14 +751,17 @@
       border-radius: 2px;
     }
     .speed-arrow {
+      position: relative;
       display: flex;
-      flex-direction: column;
       align-items: center;
-      gap: 4px;
       margin-left: -1px;
       flex-shrink: 0;
     }
     .speed-axis-label {
+      position: absolute;
+      top: calc(100% + 4px);
+      left: 50%;
+      transform: translateX(-50%);
       font-size: 0.72rem;
       color: #282828;
       opacity: 0.55;
@@ -1273,7 +1276,7 @@
         </div>
 
       <div class="proto-embed animate-in delay-4" style="margin-top: 32px;">
-        <p class="proto-label">Facilities prototype with Figma Make</p>
+        <p class="proto-label">Old school spaghetti prototype</p>
         <img src="spaghetti-prototype.jpeg" alt="Spaghetti prototype generated with Figma Make"
           style="width:100%; border-radius:16px; box-shadow: 0 8px 32px rgba(0,0,0,0.1); display:block;" />
       </div>
