@@ -576,8 +576,35 @@
     }
 
     /* ─── Mobile ───────────────────────────────────────────────── */
+    /* Tool logo row */
+    .tool-logo-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 24px;
+    }
+    .tool-logo-pill {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      background: rgba(0,124,190,0.08);
+      border-radius: 20px;
+      padding: 6px 14px 6px 10px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: #282828;
+      letter-spacing: 0.01em;
+    }
+    .tool-logo-pill-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
     @media (max-width: 720px) {
       .cards-2 { grid-template-columns: 1fr; }
+      .card-img-grid { grid-template-columns: 1fr !important; }
 
       /* Speed spectrum: allow labels to wrap, grow track height */
       .speed-track { height: auto; min-height: 160px; padding: 60px 0; }
@@ -1159,6 +1186,29 @@
               We've explored a few tools for prototyping and interaction exploration —
               each taught us something different about where AI fits in the build process.
             </p>
+
+            <div class="tool-logo-row">
+              <div class="tool-logo-pill">
+                <span class="tool-logo-pill-dot" style="background: #F24E1E;"></span>
+                Figma Make
+              </div>
+              <div class="tool-logo-pill">
+                <span class="tool-logo-pill-dot" style="background: #E966A0;"></span>
+                Lovable
+              </div>
+              <div class="tool-logo-pill">
+                <span class="tool-logo-pill-dot" style="background: #4285F4;"></span>
+                Google Stitch
+              </div>
+              <div class="tool-logo-pill">
+                <span class="tool-logo-pill-dot" style="background: #171717;"></span>
+                V0
+              </div>
+              <div class="tool-logo-pill">
+                <span class="tool-logo-pill-dot" style="background: #D97757;"></span>
+                Claude
+              </div>
+            </div>
           </div>
 
           <!-- S2 Illustration: Browser wireframe -->
@@ -1202,28 +1252,31 @@
           <div class="card" style="border-left-color: #007cbe;">
             <div class="card-tool" style="color: #004d7a;">
               <span class="card-tool-dot" style="background: #007cbe;"></span>
-              Figma Make
+              Ideation
+            </div>
+            <h3>Generating more ideas quickly</h3>
+            <p>
+              AI tools have made it easier to explore a wide range of visual directions in a fraction of the time. Instead of starting from a blank canvas, designers can generate functional UI screens from prompts and rough sketches — getting to something tangible in minutes. The value isn't in the output itself, but in the speed of exploration: more directions tried, more options compared, faster alignment with stakeholders.
+            </p>
+          </div>
+          <div class="card" style="border-left-color: #007cbe;">
+            <div class="card-tool" style="color: #004d7a;">
+              <span class="card-tool-dot" style="background: #007cbe;"></span>
+              Prototyping
             </div>
             <h3>Prototyping for UTs</h3>
             <p>
               Useful for exploring layout ideas and generating realistic prototypes for UTs in a shorter time than traditional prototyping tools.
               However, this takes time to set up and requires a lot of manual tweaking and prompting to get the prototype to the desired state.
             </p>
-            <img src="spaghetti-prototype.jpeg" alt="Spaghetti prototype generated with Figma Make" style="width:100%; border-radius:10px; margin-top:16px; box-shadow: 0 4px 16px rgba(0,0,0,0.1);"/>
-          </div>
-          <div class="card" style="border-left-color: #007cbe;">
-            <div class="card-tool" style="color: #004d7a;">
-              <span class="card-tool-dot" style="background: #007cbe;"></span>
-              Google Stitch
-            </div>
-            <h3>AI-Generated UI Prototypes</h3>
-            <p>
-              Google Stitch lets you generate functional UI screens from text prompts and sketches. Useful for rapidly exploring visual directions and getting to a tangible design artefact without starting from scratch.
-              Still being explored — early results suggest strong potential for early-stage ideation and stakeholder alignment.
-            </p>
-            <img src="google-stitch.jpeg" alt="Google Stitch generating UI screens from a prompt" style="width:100%; border-radius:10px; margin-top:16px; box-shadow: 0 4px 16px rgba(0,0,0,0.1);"/>
           </div>
         </div>
+
+      <div class="proto-embed animate-in delay-4" style="margin-top: 32px;">
+        <p class="proto-label">Facilities prototype with Figma Make</p>
+        <img src="spaghetti-prototype.jpeg" alt="Spaghetti prototype generated with Figma Make"
+          style="width:100%; border-radius:16px; box-shadow: 0 8px 32px rgba(0,0,0,0.1); display:block;" />
+      </div>
 
       <!-- Choose Your Speed spectrum -->
       <div class="speed-spectrum animate-in delay-4" style="margin-top: 40px;">
@@ -1257,9 +1310,21 @@
         </div>
       </div>
 
+      <div class="proto-embed animate-in delay-5" style="margin-top: 32px;">
+        <p class="proto-label">Generating UI screens with Google Stitch</p>
+        <img src="google-stitch.jpeg" alt="Google Stitch generating UI screens from a prompt"
+          style="width:100%; border-radius:16px; box-shadow: 0 8px 32px rgba(0,0,0,0.1); display:block;" />
+        <p style="margin-top: 16px; font-size: 0.95rem; color: #282828; opacity: 0.75; line-height: 1.65;">
+          Google Stitch lets you generate functional UI screens from text prompts and sketches.
+          Useful for rapidly exploring visual directions and getting to a tangible design artefact
+          without starting from scratch. Still being explored — early results suggest strong potential
+          for early-stage ideation and stakeholder alignment.
+        </p>
+      </div>
+
       <!-- Prototype embed spans full column width, below content -->
       <div class="proto-embed animate-in delay-5">
-        <p class="proto-label">Interactive prototype — try it</p>
+        <p class="proto-label">Facilities prototype with Figma Make</p>
         <div class="proto-frame">
           <iframe
             src="https://onion-sew-84529607.figma.site/"
@@ -1270,7 +1335,7 @@
       </div>
 
       <div class="proto-embed animate-in delay-5" style="margin-top: 32px;">
-        <p class="proto-label">Figma Make — walkthrough</p>
+        <p class="proto-label">Prototyping with Lovable</p>
         <video
           src="lovable-example.mp4"
           controls
@@ -1279,7 +1344,7 @@
       </div>
 
       <div class="proto-embed animate-in delay-5" style="margin-top: 32px;">
-        <p class="proto-label">Figma Make prototype — try it</p>
+        <p class="proto-label">SGO prototype for volunteers</p>
         <div class="proto-frame">
           <iframe
             src="https://legal-draw-40061758.figma.site"
@@ -1300,6 +1365,12 @@
             Useful for generating 0 to 1 MVPs in a shorter time than traditional development tools.
             Up next: How can designers use Claude Code to generate prototypes for testing and how can we integrate it with Figma MCP?
           </p>
+          <div class="card-img-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 20px;">
+            <img src="xinyun-claudecode.jpeg" alt="Claude Code in use"
+              style="width:100%; border-radius:10px; box-shadow: 0 4px 16px rgba(0,0,0,0.1);" />
+            <img src="xinyun-claudecode-bsg-mock.jpeg" alt="Claude Code BSG mock"
+              style="width:100%; border-radius:10px; box-shadow: 0 4px 16px rgba(0,0,0,0.1);" />
+          </div>
         </div>
       </div>
     </div>
@@ -1388,12 +1459,16 @@
           </div>
         </div>
 
-        <div class="callout" style="background: rgba(255,255,255,0.5); color: #8b1f30;">
-          <span class="callout-icon">⚠️</span>
-          <span>
-            Fact-checking always sits with us. AI-synthesised insights are a starting point —
-            always verify against primary sources before drawing conclusions.
-          </span>
+        <div class="callout" style="background: rgba(255,255,255,0.5); color: #8b1f30; flex-direction: column; align-items: flex-start; gap: 12px;">
+          <div style="display: flex; align-items: flex-start; gap: 12px;">
+            <span class="callout-icon">⚠️</span>
+            <span>
+              Fact-checking always sits with us. AI-synthesised insights are a starting point —
+              always verify against primary sources before drawing conclusions.
+            </span>
+          </div>
+          <img src="carrie-uxr-ai-reflection.jpeg" alt="Carrie's reflection on AI in UX research"
+            style="width:100%; border-radius:10px; box-shadow: 0 4px 16px rgba(0,0,0,0.1);" />
         </div>
       </div>
     </div>
@@ -1450,7 +1525,7 @@
             </div>
             <h3>AI UX writer agent</h3>
             <p>
-              building an AI UX writer agent that retrieves pre-approved copy from a library to maintain consistency, 
+              Building an AI UX writer agent that retrieves pre-approved copy from a library to maintain consistency, 
               and validates copy against approved scheme names and style guidelines. 
               It also handles writing new copy from scratch when needed.
             </p>
