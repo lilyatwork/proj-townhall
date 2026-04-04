@@ -609,23 +609,11 @@
 
       /* Speed spectrum: allow labels to wrap on narrow viewports */
       .speed-track { height: 200px; }
-      .speed-label { white-space: normal; max-width: 110px; font-size: 0.78rem; }
+      .speed-label { white-space: normal; max-width: 130px; font-size: 0.78rem; }
       .speed-axis-label { display: none; }
-      /* Narrow tooltips on mobile to avoid overflow on left and right */
-      .speed-tooltip { width: 160px !important; font-size: 0.75rem; }
-      /* On mobile, flip below-point tooltips to appear above the axis
-         so they don't land on top of the label sitting below the dot */
-      .speed-point[data-pos="below"] .speed-tooltip {
-        top: auto !important;
-        bottom: calc(100% + 12px) !important;
-        transform: translateX(-50%) translateY(-4px) !important;
-      }
-      .speed-point[data-pos="below"] .speed-dot.active ~ .speed-tooltip,
-      .speed-point[data-pos="below"] .speed-dot:hover ~ .speed-tooltip {
-        transform: translateX(-50%) translateY(0) !important;
-        opacity: 1;
-        pointer-events: auto;
-      }
+      /* Hide tooltips on mobile — labels already carry the info,
+         and touch-triggered tooltips conflict with label layout */
+      .speed-tooltip { display: none !important; }
       .start-here-grid { grid-template-columns: 1fr; }
       /* Column layout so illustration can appear above content */
       .section { padding: 100px 20px 64px; flex-direction: column; }
